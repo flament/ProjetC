@@ -15,13 +15,45 @@ PROG = agenda
 all : $(PROG)
 
 #edition de liens et production de l'executable
-$(PROG) :  verifs.o main.o
-	$(CC) $(CFLAGS) verifs.o main.o  -o $(PROG) 
+$(PROG) :  verifs.o charger.o enregistrer.o conversion.o emplacementDispo.o participants.o  ajouterEvenement.o modifierEvenement.o supprimerEvenement.o main.o
+	$(CC) $(CFLAGS) verifs.o charger.o enregistrer.o conversion.o emplacementDispo.o participants.o ajouterEvenement.o modifierEvenement.o main.o  supprimerEvenement.o -o $(PROG) 
 
 	
 # compilation du fichier verifs
 verifs.o : verifs.c Agenda.h
 	$(CC) $(CFLAGS) -c verifs.c 
+
+# compilation du fichier charger
+charger.o : charger.c Agenda.h
+	$(CC) $(CFLAGS) -c charger.c 
+
+# compilation du fichier enregistrer
+enregistrer.o : enregistrer.c Agenda.h
+	$(CC) $(CFLAGS) -c enregistrer.c 
+
+# compilation du fichier conversion
+conversion.o : conversion.c Agenda.h
+	$(CC) $(CFLAGS) -c conversion.c 
+
+# compilation du fichier emplacementDispo
+emplacementDispo.o : emplacementDispo.c Agenda.h
+	$(CC) $(CFLAGS) -c emplacementDispo.c 
+
+# compilation du fichier participants
+participants.o : participants.c Agenda.h
+	$(CC) $(CFLAGS) -c participants.c  
+
+# compilation du fichier ajouterEvenement
+ajouterEvenement.o : ajouterEvenement.c Agenda.h
+	$(CC) $(CFLAGS) -c ajouterEvenement.c  
+
+# compilation du fichier modifierEvenement
+modifierEvenement.o : modifierEvenement.c Agenda.h
+	$(CC) $(CFLAGS) -c modifierEvenement.c  
+
+# compilation du fichier supprimerEvenement
+supprimerEvenement.o : supprimerEvenement.c Agenda.h
+	$(CC) $(CFLAGS) -c supprimerEvenement.c  
 
 # compilation du fichier main
 main.o : main.c Agenda.h

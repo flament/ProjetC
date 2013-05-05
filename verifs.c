@@ -78,6 +78,7 @@ int formatHeureValide(char h[50]){
 	}
 	return res;
 }
+
 int stringValide(char *s){
    int res = 1;
 	int i;
@@ -93,7 +94,104 @@ int stringValide(char *s){
 	return res;
 }
 
+int dateFinValide(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]){
+	int jourDeb, jourFin, moisDeb, moisFin, anneeDeb, anneeFin, heureD, heureF, minuteDeb, minuteFin;
+	char * m_t;
+	int res = 1;
+	
+	jourDeb = atoi(strtok(dateDeb,"/")); 
+	m_t = &dateDeb[3];	 
+	moisDeb = atoi(strtok(m_t,"/"));
+	anneeDeb =  atoi(&m_t[3]);
+	heureD = atoi(strtok(heureDeb,":"));
+	minuteDeb = atoi(&heureDeb[3]);
+
+	jourFin = atoi(strtok(dateFin,"/")); 
+	m_t = &dateFin[3];	 
+	moisFin = atoi(strtok(m_t,"/"));
+	anneeFin =  atoi(&m_t[3]);
+	heureF = atoi(strtok(heureFin,":"));
+	minuteFin = atoi(&heureFin[3]);
+
+	if(anneeDeb == anneeFin){
+		if(moisDeb == moisFin){
+			if(jourDeb == jourFin){
+				if(heureD == heureF){
+					if(minuteDeb >= minuteFin){
+						printf("Incorrect! Les minutes de la date de fin sont inférieures ou égales à celles de la date de début\n");
+						res = 0;
+					}
+				}else if(heureD > heureF){
+					printf("Incorrect! L'heure de la date de fin est inférieure à celle de la date de début\n");
+					res = 0;
+			}
+			}else if(jourDeb > jourFin){
+				printf("Incorrect! Le jour de la date de fin est inférieur à celui de la date de début\n");
+				res = 0;
+			}
+		}else if(moisDeb > moisFin){
+			printf("Incorrect! Le mois de la date de fin est inférieur à celui de la date de début\n");
+			res = 0;
+		}
+	}else if(anneeDeb > anneeFin){
+			printf("Incorrect! L'année de la date de fin est inférieure à celle de la date de début\n");
+			res = 0;
+	}
+	return res;
+}
+
+int emailValide(char email[100]){
+	int res = 0;
+	int i;
+	char *avt,*apres;
+
+	for(i=0; i < strlen(email); i++){
+		if(email[i] == '@')
+			res = 1;
+	}
+	if(res == 0)
+		printf("Email incorrect! L'email doit contenir un @\n");
+
+	if(res == 1){
+		for(i = strlen(email)-1; i > strlen(email)-3; i--){
+			if((email[i]<= 96 || email[i] >= 123 || email[strlen(email)-3] != '.') && (email[i]<= 96 || email[i]>= 123 || email[strlen(email)-3]<= 96 || email[strlen(email)-3] >= 123 || email[strlen(email)-4] != 46)){
+				res = 0;
+				printf("Email incorrect! La fin de l'email doit être composée soit d'1 point et de 3 lettres, soit d'1 point et de 2 lettres \n");
+			}
+		}
+	}
+	
+	if(res == 1){
+		if(email[0] == '@'){
+			res = 0;	
+			printf("Email incorrect! Il doit y avoir quelque chose avant le @\n");
+		}else{
+			avt = strtok(email,"@");
+			apres = &email[strlen(avt)+1];
+			if(apres[0] == '.'){
+				res = 0;
+				printf("Email incorrect! Il doit y avoir quelque chose après le @\n");
+			}
+		}
+	} 
+
+	return res;
+}
+
+
 /*int main(int argc, char** argv) {
+	char e[100] = "aaa";
+	char e1[100] ="a@aa";
+	char e2[100] = "@aa.fr";
+	char e3[100] = "aa@.fr";
+	char e4[100] = "aa@aaa";
+	char e5[100] = "aa@aa.1fr";
+	char e6[100] = "aa@aa.1f";
+	char e7[100] = "aa@aa.11";
+	char e8[100] = "aa@aa.fr";
+	char e9[100] = "aa@aa.com";
+	printf("%d\n",emailValide(e9));
+
 	char d[25]= "29/02/2013";
 	//int test1 = formatDateValide(d);//OK
 	char d1[25] = "04/02/2013";
@@ -113,7 +211,7 @@ int stringValide(char *s){
 	char d8[25] = "12/13/1999";
 	//int test9 = formatDateValide(d8);//OK
 	char d9[25] = "28,02/2013";
-	int test10 = formatDateValide(d9);
+	//int test10 = formatDateValide(d9);
 	//printf("test1 %d\n",test1);
 	//printf("test2 %d\n",test2);
 	//printf("test3 %d\n",test3);
@@ -123,13 +221,16 @@ int stringValide(char *s){
 	//printf("test7 %d\n",test7);
 	//printf("test8 %d\n",test8);
 	//printf("test9 %d\n",test9);
-	printf("test10 %d\n",test10);
-
-	int t = stringValide(d9);
-	printf("%d\n",t);
-	char * gg = "salut";
-	int t2 = stringValide(gg);
-	printf("%d\n",t2);
+	//printf("test10 %d\n",test10);
+	char hp[50] = "10:50";
+	char hc[50] = "10:49";
+	//int res = dateFinValide(d5,d4,hp,hc);//OK
+	//printf("%d\n",res);
+	//int t = stringValide(d9);
+	//printf("%d\n",t);
+	//char * gg = "salut";
+	//int t2 = stringValide(gg);
+	//printf("%d\n",t2);
 	char h[50] = "10:50";
 	char h1[50] = "10:60";
 	char h2[50]= "24:30";

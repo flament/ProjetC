@@ -14,29 +14,20 @@
 enum Fonc {eleve,professeur};
 typedef enum Fonc Fonction;
 
-struct Tache{
-    char *nom;
-    time_t deadline;
-    /*PERSONNE personne;*/
-};
-typedef struct Tache TACHE;
-
 struct Personne{
-    char *nom;
-    char *prenom;
-    char *email;
-    char *mdp;
+    char nom[100];
+    char prenom[100];
+    char email[100];
+    char mdp[100];
     Fonction fonction;
-	struct Personne *suivant;
-    TACHE taches[] ;
+	 struct Personne *suivant;
 };
 typedef struct Personne PERSONNE;
 
 struct Evenement{
-    char *nom;
-    char *nomLieu;
-	int capaciteLieu;
-    char *description;
+    char nom[100];
+    char nomLieu[100];
+    char description[200];
     struct tm* dateDebut;
     struct tm* dateFin; 
     PERSONNE *participants;
@@ -47,6 +38,27 @@ typedef struct Evenement EVENEMENT;
 int formatDateValide(char date[25]);
 int formatHeureValide(char h[50]);
 int stringValide(char *s);
+int dateFinValide(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);
+int emailValide(char email[100]);
 
+
+void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50]);
+void charger(char *nomFichier);
+void ecrireUnEvenement(FILE* c,EVENEMENT *e);
+void ecriture();
+
+PERSONNE *ajouterParticipant();
+PERSONNE *rechercherParticipant(char email[100]);
+void supprimerParticipant(char email[100]);
+void modifierParticipant(char email[100]);
+char *afficherParticipants();
+
+struct tm* convertirStringToDate(char s[50], char h[50]);
+int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);
+
+EVENEMENT *rechercher(char nomEvenement[100],char dateDebutEvenement[10]);
+void supprimer(char nomEvenement[100],char dateDebutEvenement[10]);
+void modifier(char nomEvenement[100],char dateDebutEvenement[10]);
+void ajouterEvenement();
 #endif	/* AGENDA_H */
 

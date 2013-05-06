@@ -168,6 +168,14 @@ int emailValide(char email[100]){
 		}else{
 			avt = strtok(email,"@");
 			apres = &email[strlen(avt)+1];
+			
+			for(i=0; i < strlen(apres); i++){
+				if(apres[i] == '@'){
+					res = 0;
+					printf("Email incorrect! Il ne doit y contenir qu'un seul @!\n");
+				}
+			}
+			
 			if(apres[0] == '.'){
 				res = 0;
 				printf("Email incorrect! Il doit y avoir quelque chose après le @\n");

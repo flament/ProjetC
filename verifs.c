@@ -157,6 +157,7 @@ int emailValide(char email[100]){
 			if((email[i]<= 96 || email[i] >= 123 || email[strlen(email)-3] != '.') && (email[i]<= 96 || email[i]>= 123 || email[strlen(email)-3]<= 96 || email[strlen(email)-3] >= 123 || email[strlen(email)-4] != 46)){
 				res = 0;
 				printf("Email incorrect! La fin de l'email doit être composée soit d'1 point et de 3 lettres, soit d'1 point et de 2 lettres \n");
+				break;
 			}
 		}
 	}
@@ -173,6 +174,7 @@ int emailValide(char email[100]){
 				if(apres[i] == '@'){
 					res = 0;
 					printf("Email incorrect! Il ne doit y contenir qu'un seul @!\n");
+					break;
 				}
 			}
 			

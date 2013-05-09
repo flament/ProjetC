@@ -45,15 +45,18 @@ int emailValide(char email[100]);
 void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50]);
 void charger(char *nomFichier);
 void ecrireUnEvenement(FILE* c,EVENEMENT *e);
-void ecriture();
+void ecritureCSV();
+void enregistrerFormatTxt();
+void enregistrerParticipants();
 
 PERSONNE *ajouterParticipant();
 PERSONNE *rechercherParticipant(char email[100]);
-void supprimerParticipant(char email[100]);
+void supprimerParticipantEvt(char email[100]);
 void modifierParticipant(char email[100]);
 char *afficherParticipants();
 void recuperationParticipantsEvt(PERSONNE *p);
 void razTetePersonne();
+PERSONNE *testPersonneDejaExistente(char email[100]);
 
 struct tm* convertirStringToDate(char s[50], char h[50]);
 int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);

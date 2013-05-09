@@ -17,65 +17,121 @@ void ajouterEvenement(){
 	
 	printf("Nom de l'évènement : ");	
 	fgets(nomTemp, sizeof(nomTemp), stdin);
-	nom = strtok(nomTemp,"\n");
+	/*Si l'utilisateur ne saisit pas de nom (tape sur Entrée), nom = Nouvel évènement par défaut*/	
+	if(strcmp(nomTemp,"\n"))
+		nom = strtok(nomTemp,"\n");
+	else
+		nom = "Nouvel évènement ";
+
 	while(!stringValide(nom)){
 		printf("Nom de l'évènement : ");
 		fgets(nomTemp, sizeof(nomTemp), stdin);
-		nom = strtok(nomTemp,"\n");
+		
+		if(strcmp(nomTemp,"\n"))
+			nom = strtok(nomTemp,"\n");
+		else
+			nom = "Nouvel évènement ";
 	}
 
 	printf("Description de l'évènement : ");
 	fgets(descTemp, sizeof(descTemp), stdin);
-	desc = strtok(descTemp,"\n");
+	
+	if(strcmp(descTemp,"\n"))
+		desc = strtok(descTemp,"\n");
+	else
+		desc = "Inconnue";
 	while(!stringValide(desc)){
 		printf("Description de l'évènement : ");
 		fgets(descTemp, sizeof(descTemp), stdin);
-		desc = strtok(descTemp,"\n");
+		
+		if(strcmp(descTemp,"\n"))
+			desc = strtok(descTemp,"\n");
+		else
+			desc = "Inconnue";
 	}
 	
 	printf("Lieu de l'évènement :");
 	fgets(lieuTemp, sizeof(lieuTemp), stdin);
-	nomLieu = strtok(lieuTemp,"\n");
+	
+	if(strcmp(lieuTemp,"\n"))
+		nomLieu = strtok(lieuTemp,"\n");
+	else
+		nomLieu = "Inconnu";
+
 	while(!stringValide(nomLieu)){
 		printf("Lieu de l'évènement : ");
 		fgets(lieuTemp, sizeof(lieuTemp), stdin);
-		nomLieu = strtok(lieuTemp,"\n");
+		
+		if(strcmp(lieuTemp,"\n"))
+			nomLieu = strtok(lieuTemp,"\n");
+		else
+			nomLieu = "Inconnu";
 	}
 
 	printf("Date de début de l'évènement (format dd/mm/yyyy): ");
 	fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
-	dateDebut = strtok(dateDebTemp,"\n");
+	if(strcmp(dateDebTemp,"\n"))
+		dateDebut = strtok(dateDebTemp,"\n");
+	else
+		dateDebut = "Inconnue";
+
 	while(!formatDateValide(dateDebut)){
 		printf("Date de début de l'évènement (format dd/mm/yyyy): ");
 		fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
-		dateDebut = strtok(dateDebTemp,"\n");
+		
+		if(strcmp(dateDebTemp,"\n"))
+			dateDebut = strtok(dateDebTemp,"\n");
+		else
+			dateDebut = "Inconnue";
 	}
 
 	printf("Heure de début de l'évènement (format HH:MM): ");
 	fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
-	heureDebut = strtok(heureDebTemp,"\n");
+	if(strcmp(heureDebTemp,"\n"))
+		heureDebut = strtok(heureDebTemp,"\n");
+	else
+		heureDebut = "Inconnue";
+	
 	while(!formatHeureValide(heureDebut)){
 		printf("Heure de début de l'évènement (format HH:MM): ");
 		fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
-		heureDebut = strtok(heureDebTemp,"\n");
+		if(strcmp(heureDebTemp,"\n"))
+			heureDebut = strtok(heureDebTemp,"\n");
+		else
+			heureDebut = "Inconnue";
 	}
 	
 	printf("Date de fin de l'évènement (format dd/mm/yyyy): ");
 	fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
-	dateFin = strtok(dateFinTemp,"\n");
+	if(strcmp(dateFinTemp,"\n"))
+		dateFin = strtok(dateFinTemp,"\n");
+	else
+		dateFin = "Inconnue";
+	
 	while(!formatDateValide(dateFin)){
 		printf("Date de fin de l'évènement (format dd/mm/yyyy): ");
 		fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
-		dateFin = strtok(dateFinTemp,"\n");
+		
+		if(strcmp(dateFinTemp,"\n"))
+			dateFin = strtok(dateFinTemp,"\n");
+		else
+			dateFin = "Inconnue";
 	}
 
 	printf("Heure de fin de l'évènement (format HH:MM): ");
 	fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
-	heureFin = strtok(heureFinTemp,"\n");
+	if(strcmp(heureFinTemp,"\n"))
+		heureFin = strtok(heureFinTemp,"\n");
+	else
+		heureFin = "Inconnue";
+	
 	while(!formatHeureValide(heureFin)){
 		printf("Heure de fin de l'évènement (format HH:MM): ");
 		fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
-		heureFin = strtok(heureFinTemp,"\n");
+		if(strcmp(heureFinTemp,"\n"))
+			heureFin = strtok(heureFinTemp,"\n");
+		else
+			heureFin = "Inconnue";
 	}
 
 	/*vérification des dates+heures et une boucle demandant de changer l'une des deux si pas bon, et boucle jusqu'à ce que ce soit correct*/
@@ -88,42 +144,74 @@ void ajouterEvenement(){
 			case 1 :
 				printf("Date de début de l'évènement (format dd/mm/yyyy): ");
 				fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
-				dateDebut = strtok(dateDebTemp,"\n");
+				if(strcmp(dateDebTemp,"\n"))
+					dateDebut = strtok(dateDebTemp,"\n");
+				else
+					dateDebut = "Inconnue";
+
 				while(!formatDateValide(dateDebut)){
 					printf("Date de début de l'évènement (format dd/mm/yyyy): ");
 					fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
-					dateDebut = strtok(dateDebTemp,"\n");
+					if(strcmp(dateDebTemp,"\n"))
+						dateDebut = strtok(dateDebTemp,"\n");
+					else
+						dateDebut = "Inconnue";
 				}
 				break;
 
 			case 2 :
 				printf("Heure de début de l'évènement (format HH:MM) ");
 				fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
-				heureDebut = strtok(heureDebTemp,"\n");
+				if(strcmp(heureDebTemp,"\n"))
+					heureDebut = strtok(heureDebTemp,"\n");
+				else
+					heureDebut = "Inconnue";
+
 				while(!formatHeureValide(heureDebut)){
 					printf("Heure de début de l'évènement (format HH:MM): ");
 					fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
-					heureDebut = strtok(heureDebTemp,"\n");
+					
+					if(strcmp(heureDebTemp,"\n"))
+						heureDebut = strtok(heureDebTemp,"\n");
+					else
+						heureDebut = "Inconnue";
 				}
 				break;
 			case 3 :
 				printf("Date de fin de l'évènement (format dd/mm/yyyy): ");
 				fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
-				dateFin = strtok(dateFinTemp,"\n");
+				if(strcmp(dateFinTemp,"\n"))
+					dateFin = strtok(dateFinTemp,"\n");
+				else
+					dateFin = "Inconnue";
+	
 				while(!formatDateValide(dateFin)){
 					printf("Date de fin de l'évènement (format dd/mm/yyyy): ");
 					fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
-					dateFin = strtok(dateFinTemp,"\n");
+					
+					if(strcmp(dateFinTemp,"\n"))
+						dateFin = strtok(dateFinTemp,"\n");
+					else
+					dateFin = "Inconnue";
 				}
 				break;
 			case 4 :
 				printf("Heure de fin de l'évènement (format HH:MM) ");
 				fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
-				heureFin = strtok(heureFinTemp,"\n");
+				
+				if(strcmp(heureFinTemp,"\n"))
+					heureFin = strtok(heureFinTemp,"\n");
+				else
+					heureFin = "Inconnue";
+
 				while(!formatHeureValide(heureFin)){
 					printf("Heure de fin de l'évènement (format HH:MM): ");
 					fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
-					heureFin = strtok(heureFinTemp,"\n");
+
+					if(strcmp(heureFinTemp,"\n"))
+						heureFin = strtok(heureFinTemp,"\n");
+					else
+						heureFin = "Inconnue";
 				}
 				break;
 			default :

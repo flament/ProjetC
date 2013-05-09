@@ -69,7 +69,9 @@ int main(int argc, char** argv) {
 	printf("%s\n",buffer);
 	printf("%s\n",buff2);*/
 
-	ecriture();
+	ecritureCSV();
+	enregistrerParticipants();
+	enregistrerFormatTxt();
     return (EXIT_SUCCESS);	
 }
 

@@ -11,46 +11,48 @@ int formatDateValide(char date[50]){
 	
 	sep1 = date[2];
 	sep2 = date[5];
-	 /*12/10/2012->12\010\02012*/
-	jour = strtok(date,"/");/*La chaîne passée en argument est modifiée par la fonction : elle ajoute un caractère de fin de chaîne à la place du séparateur. */
-	m_t = &date[3];
-	mois = strtok(m_t,"/");
-	annee =  &m_t[3];	
-	
-	if(taille != 10){
-		printf("la date ne doit pas contenir plus de 10 caractères!\n");
-		res = 0;
-	}else if(atoi(mois) < 0 || atoi(mois) > 12){
-		printf("mois invalide\n");
-		res = 0;
-	}else if((int)(strlen(annee)) != 4){
-		printf("Année invalide!\n");
-		res = 0;
-	}else if(sep1 != '/' || sep2 != '/'){
-		printf("format invalide\n");
-		res = 0;
-	}			
-	/*strcmp renvoie 0 si égaux*/
-	else if(!strcmp(mois,"02")){
-		if(atoi(jour) < 0 || atoi(jour) > 28){
-			printf("Le mois de février doit contenir entre 1 et 28 jours!\n");
-			res = 0;
-		}
-	}else if(!strcmp(mois,"01") || !strcmp(mois,"03") || !strcmp(mois,"05") || !strcmp(mois,"07") || !strcmp(mois,"08") || !strcmp(mois,"10") || !strcmp(mois,"12")){
-		if(atoi(jour) < 0 || atoi(jour) > 31){
-			printf("Ces mois ne contiennent que 31 jours!\n");
-			res = 0;
-		}
-	}else if(!strcmp(mois,"04") || !strcmp(mois,"06") || !strcmp(mois,"09") || !strcmp(mois,"11")){
-		if(atoi(jour) < 0 || atoi(jour) > 30){
-			printf("Ces mois ne contiennent que 30 jours!\n");
-			res = 0;
-		}					
-	}else{
-		printf("Jour entré invalide!\n");
-		res = 0;
-	}
 
+	if(sep1 != '/' || sep2 != '/'){
+		printf("Format invalide (format dd/mm/aaaa)\n");
+		res = 0;
+	}else{	
+	 	/*12/10/2012->12\010\02012*/
+		jour = strtok(date,"/");/*La chaîne passée en argument est modifiée par la fonction : elle ajoute un caractère de fin de chaîne à la place du séparateur. */
+		m_t = &date[3];
+		mois = strtok(m_t,"/");
+		annee =  &m_t[3];	
+	
+		if(taille != 10){
+			printf("La date doit contenir 10 caractères (format dd/mm/aaaa)!\n");
+			res = 0;
+		}else if(atoi(mois) < 0 || atoi(mois) > 12){
+			printf("Mois invalide\n");
+			res = 0;
+		}else if((int)(strlen(annee)) != 4){
+			printf("Année invalide!\n");
+			res = 0;
+		}
+		/*strcmp renvoie 0 si égaux*/
+		else if(!strcmp(mois,"02")){
+			if(atoi(jour) < 0 || atoi(jour) > 28){
+				printf("Le mois de février doit contenir entre 1 et 28 jours!\n");
+				res = 0;
+			}
+		}else if(!strcmp(mois,"01") || !strcmp(mois,"03") || !strcmp(mois,"05") || !strcmp(mois,"07") || !strcmp(mois,"08") || !strcmp(mois,"10") || !strcmp(mois,"12")){
+			if(atoi(jour) < 0 || atoi(jour) > 31){
+				printf("Ces mois ne contiennent que 31 jours!\n");
+				res = 0;
+			}
+		}else if(!strcmp(mois,"04") || !strcmp(mois,"06") || !strcmp(mois,"09") || !strcmp(mois,"11")){
+			if(atoi(jour) < 0 || atoi(jour) > 30){
+				printf("Ces mois ne contiennent que 30 jours!\n");
+				res = 0;
+			}					
+		}else{
+			printf("Jour entré invalide!\n");
+			res = 0;
+		}
+	}
 	return res;
 }
 
@@ -60,21 +62,23 @@ int formatHeureValide(char h[50]){
 	int taille = (int)(strlen(h));
 	int res = 1;
 	
-	heure = strtok(h,":");
-	minute = &h[3];
+	if(sep != ':'){
+		printf("Format heure invalide (format hh:mm)!\n");
+		res = 0;
+	}else{
+		heure = strtok(h,":");
+		minute = &h[3];
 
-	if(taille != 5){
-		printf("l'heure ne doit pas contenir plus de 5 caractères!\n");
-		res = 0;
-	}else if(sep != ':'){
-		printf("Format heure invalide!\n");
-		res = 0;
-	}else if(atoi(heure) < 0 || atoi(heure) >= 24){
-		printf("Heure invalide!\n");
-		res = 0;
-	}else if(atoi(minute) < 0 || atoi(minute) > 59){
-		printf("Minute invalide!\n");
-		res = 0;
+		if(taille != 5){
+			printf("L'heure doit contenir 5 caractères (format hh:mm)!\n");
+			res = 0;		 
+		}else if(atoi(heure) < 0 || atoi(heure) >= 24){
+			printf("Heure invalide!\n");
+			res = 0;
+		}else if(atoi(minute) < 0 || atoi(minute) > 59){
+			printf("Minute invalide!\n");
+			res = 0;
+		}
 	}
 	return res;
 }

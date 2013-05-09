@@ -52,6 +52,8 @@ PERSONNE *rechercherParticipant(char email[100]);
 void supprimerParticipant(char email[100]);
 void modifierParticipant(char email[100]);
 char *afficherParticipants();
+void recuperationParticipantsEvt(PERSONNE *p);
+void razTetePersonne();
 
 struct tm* convertirStringToDate(char s[50], char h[50]);
 int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);

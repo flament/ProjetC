@@ -5,10 +5,17 @@
 
 PERSONNE *tetePers = NULL;
 
+void razTetePersonne(){
+	tetePers = NULL;
+}
+
+void recuperationParticipantsEvt(PERSONNE *p){
+	tetePers = p;
+}
 PERSONNE *ajouterParticipant(){
 	PERSONNE *pers = (PERSONNE *)malloc(sizeof(PERSONNE));
 	char *prenom, *nom, *email;
-	char prenomTemp[80], nomTemp[80],emailTemp[80];
+	char prenomTemp[100], nomTemp[100],emailTemp[100];
 	/* mdp fct */
 	printf("Nom :");
 	fgets(nomTemp, sizeof(nomTemp), stdin);
@@ -27,6 +34,7 @@ PERSONNE *ajouterParticipant(){
 		fgets(emailTemp, sizeof(emailTemp), stdin);
 		email = strtok(emailTemp,"\n");
 	}
+	
 	strcpy(pers->nom,nom);
 	strcpy(pers->prenom,prenom);
 	strcpy(pers->email,email);
@@ -126,6 +134,7 @@ void modifierParticipant(char email[100]){
 }
 
 char *afficherParticipants(){
+	/*tetePers = p;*/
 	char *res = (char*)malloc(sizeof(char));
 	char nb[1],nomTemp[100],prenomTemp[100],emailTemp[100];
 	PERSONNE *temp = tetePers->suivant;

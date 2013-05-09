@@ -39,9 +39,11 @@ int main(int argc, char** argv) {
 	ajouterEvenement();
 	ajouterEvenement();
 	ajouterEvenement();
-	printf("\n\n%s\n",afficherParticipants());
+	/*printf("\n\n%s\n",afficherParticipants());*/
 	modifier("evt2","18/04/2013");
-	printf("\n\n%s\n",afficherParticipants());
+	printf("\n\n---------------------------------------------------\n");
+	modifier("evt1","18/04/2013");
+	/*printf("\n\n%s\n",afficherParticipants());*/
 	/*ajouterEvenement();
 	ajouterEvenement();*/
 	/*EVENEMENT *ev = (EVENEMENT *)malloc(sizeof(EVENEMENT));

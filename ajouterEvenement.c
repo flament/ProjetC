@@ -6,6 +6,8 @@
 EVENEMENT *tete = NULL;
 
 void ajouterEvenement(){
+	razTetePersonne();	
+
 	EVENEMENT *e = (EVENEMENT *)malloc(sizeof(EVENEMENT));
 	PERSONNE * p = (PERSONNE *)malloc(sizeof(PERSONNE));
 	p = NULL;
@@ -154,7 +156,7 @@ void ajouterEvenement(){
 	e->participants = p;	
 	
 	e->suivant = tete;
-	tete = e;	
+	tete = e;
 }
 
 

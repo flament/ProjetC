@@ -141,6 +141,10 @@ int dateFinValide(char dateDeb[10],char dateFin[10], char heureDeb[5], char heur
 }
 
 int emailValide(char email[100]){
+	/*utilisation d'une variable temporaire car le string d'origine va être modifier durant la manipulation (cf strtok) et on perdrait sa valeur initiale)*/
+	char emailTemp[100];
+	strcpy(emailTemp,email);
+
 	int res = 0;
 	int i;
 	char *avt,*apres;
@@ -167,13 +171,13 @@ int emailValide(char email[100]){
 			res = 0;	
 			printf("Email incorrect! Il doit y avoir quelque chose avant le @\n");
 		}else{
-			avt = strtok(email,"@");
-			apres = &email[strlen(avt)+1];
+			avt = strtok(emailTemp,"@");
+			apres = &emailTemp[strlen(avt)+1];
 			
 			for(i=0; i < strlen(apres); i++){
 				if(apres[i] == '@'){
 					res = 0;
-					printf("Email incorrect! Il ne doit y contenir qu'un seul @!\n");
+					printf("Email incorrect! Il ne doit contenir qu'un seul @!\n");
 					break;
 				}
 			}

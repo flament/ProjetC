@@ -98,6 +98,21 @@ int stringValide(char *s){
 	return res;
 }
 
+int nomFichierValide(char *nom){
+	int res = 1;
+	int i;
+
+	for(i = 0; i < (int)strlen(nom); i++){
+		if(nom[i] == '.'){
+			res = 0;
+			break;
+		}
+	}
+	if(res == 0)
+		printf("Le nom de fichier ne doit pas contenir de point!\n");
+	return res;
+}
+
 int dateFinValide(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]){
 	int jourDeb, jourFin, moisDeb, moisFin, anneeDeb, anneeFin, heureD, heureF, minuteDeb, minuteFin;
 	char * m_t;

@@ -18,7 +18,7 @@ PERSONNE *ajouterParticipant(){
 	PERSONNE *pers = (PERSONNE *)malloc(sizeof(PERSONNE));
 	/*temp permettra d'insérer la nouvelle Personne dans la liste de tous les participants de tous les évènements*/
 	PERSONNE * temp = (PERSONNE *)malloc(sizeof(PERSONNE));
-	PERSONNE *test  = (PERSONNE *)malloc(sizeof(PERSONNE));
+	PERSONNE *test = (PERSONNE *)malloc(sizeof(PERSONNE));
 	test = NULL;
 
 	char *prenom, *nom, *email;
@@ -64,7 +64,7 @@ PERSONNE *ajouterParticipant(){
 			test = testPersonneDejaExistente(email);
 
 		/*email existe mais ne correspond pas au nom et prénom rentrés*/
-		if(test != NULL && strcmp(test->nom,nom) && strcmp(test->prenom,prenom))
+		if(test != NULL && (strcmp(test->nom,nom) || strcmp(test->prenom,prenom)))
 			printf("Erreur, email déjà utilisé par quelqu'un d'autre!\n");
 		else if(test != NULL){
 			strcpy(pers->nom,nom);
@@ -90,15 +90,15 @@ PERSONNE *ajouterParticipant(){
 }
 
 PERSONNE *testPersonneDejaExistente(char email[100]){
-	PERSONNE *temp = teteListePers->suivant;
+	PERSONNE *temp = teteListePers;
 	PERSONNE *res = (PERSONNE *)malloc(sizeof(PERSONNE));
 	res = NULL;
 	int reussi = 0;
 	
-	if(!strcmp(teteListePers->email, email)){
+	/*if(!strcmp(teteListePers->email, email)){
 		res = teteListePers;
 		reussi = 1;
-	}
+	}*/
 
 	while(temp != NULL && reussi == 0){
 		if(!strcmp(temp->email,email)){
@@ -111,15 +111,15 @@ PERSONNE *testPersonneDejaExistente(char email[100]){
 }
 
 PERSONNE *rechercherParticipant(char email[100]){
-	PERSONNE *temp = tetePers->suivant;
+	PERSONNE *temp = tetePers;
 	PERSONNE *res = (PERSONNE *)malloc(sizeof(PERSONNE));
 	res = NULL;
 	int reussi = 0;
 	
-	if(!strcmp(tetePers->email, email)){
+	/*if(!strcmp(tetePers->email, email)){
 		res = tetePers;
 		reussi = 1;
-	}
+	}*/
 
 	while(temp != NULL && reussi == 0){
 		if(!strcmp(temp->email,email)){
@@ -132,12 +132,12 @@ PERSONNE *rechercherParticipant(char email[100]){
 }
 
 /*Suprime un participant d'un evt donné*/
-void supprimerParticipantEvt(char email[100]){
+PERSONNE * supprimerParticipantEvt(char email[100]){
 	PERSONNE *p = rechercherParticipant(email);
 	PERSONNE* temp = tetePers;
 	if(p != NULL){
-		if(tetePers == p)
-			tetePers = tetePers->suivant;
+		if(temp == p)
+			temp = temp->suivant;
 		else{
 			while(temp->suivant != p){ 
 				temp = temp->suivant;
@@ -147,13 +147,19 @@ void supprimerParticipantEvt(char email[100]){
 			else
 				temp->suivant = NULL;
 		}
+		free(p);
 	}else
 		printf("\nParticipant inexistant\n\n");
+		
+	
+	return temp;
 }
 
 
 void modifierParticipant(char email[100]){
 	PERSONNE *p = rechercherParticipant(email);
+	PERSONNE *test = testPersonneDejaExistente(email);
+
 	char *modifPrenom, *modifNom, *modifEmail;
 	char prenomTemp[80], nomTemp[80],emailTemp[80];
 	int modifier = 0, exit = 0;
@@ -173,7 +179,9 @@ void modifierParticipant(char email[100]){
 						modifNom = strtok(nomTemp,"\n");
 					else
 						modifNom = "Inconnu ";
+					
 					strcpy(p->nom,modifNom);
+					strcpy(test->nom,modifNom);
 					break;
 				case 2 :
 					printf("Quel prénom voulez vous donner ?");
@@ -185,6 +193,7 @@ void modifierParticipant(char email[100]){
 						modifPrenom = "Inconnu ";
 					
 					strcpy(p->prenom,modifPrenom);
+					strcpy(test->prenom,modifPrenom);
 					break;
 				case 3 :
 					printf("Quel est le nouvel email ?");
@@ -204,7 +213,14 @@ void modifierParticipant(char email[100]){
 						else
 							modifEmail = "Inconnu ";
 					}
-					strcpy(p->email,modifEmail);
+
+					/*email existe mais ne correspond pas au nom et prénom rentrés*/
+					if(test != NULL && (strcmp(test->nom,p->nom) || strcmp(test->prenom,p->prenom)))
+						printf("Erreur, email déjà utilisé par quelqu'un d'autre!\n");
+					else{		
+						strcpy(p->email,modifEmail);
+						strcpy(test->email,modifEmail);
+					}
 					break;		
 				case 4 :
 					exit = 1;
@@ -225,12 +241,12 @@ void supprimerParticipant(char email[100]){
 }
 
 char *afficherParticipants(){
-	/*tetePers = p;*/
-	char *res = (char*)malloc(sizeof(char));
+	char *res = (char*)malloc(310*sizeof(char));
 	char nb[1],nomTemp[100],prenomTemp[100],emailTemp[100];
 	PERSONNE *temp = tetePers->suivant;
 	int count = 1;
-	
+	int taille;
+
 	strcpy(res,"1)");
 	strcat(res,tetePers->nom);
 	strcat(res,"  ");
@@ -238,8 +254,11 @@ char *afficherParticipants(){
 	strcat(res,"  (");
 	strcat(res,tetePers->email);
 	strcat(res,")\n");	
-	
+	taille = strlen(res);
+
 	while(temp != NULL){
+		res = realloc(res, (taille+310)*sizeof(char)); 
+		taille = strlen(res); 
 		count++;
 		sprintf(nb,"%d",count);
 		strcat(res,nb);

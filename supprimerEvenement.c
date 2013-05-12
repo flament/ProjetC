@@ -5,21 +5,21 @@
 
 extern EVENEMENT *tete;
 
-EVENEMENT *rechercher(char nomEvenement[100],char dateDebutEvenement[10]){
-	EVENEMENT *temp = tete->suivant;
+EVENEMENT *rechercherEvenement(char nomEvenement[100],char dateDebutEvenement[10]){
+	EVENEMENT *temp = tete;
 	EVENEMENT *res = (EVENEMENT *)malloc(sizeof(EVENEMENT));
 	res = NULL;
 	int reussi = 0;
-	char date[256], dateTemp[256]; 
-	strftime(date, sizeof(date), "%d/%m/%Y", tete->dateDebut);
+	char /*date[256],*/ dateTemp[256]; 
+	/*strftime(date, sizeof(date), "%d/%m/%Y", tete->dateDebut);*/
 	
 	if(temp != NULL)
 		strftime(dateTemp, sizeof(dateTemp), "%d/%m/%Y", temp->dateDebut);
 
-	if(!strcmp(tete->nom,nomEvenement) && !strcmp(date,dateDebutEvenement)){
+	/*if(!strcmp(tete->nom,nomEvenement) && !strcmp(date,dateDebutEvenement)){
 			res = tete;
 			reussi = 1;
-	}
+	}*/
 		
 	while(temp != NULL && reussi == 0){
 		if(!strcmp(temp->nom,nomEvenement) && !strcmp(dateTemp,dateDebutEvenement)){
@@ -38,8 +38,8 @@ EVENEMENT *rechercher(char nomEvenement[100],char dateDebutEvenement[10]){
 	return res;
 }
 
-void supprimer(char nomEvenement[100],char dateDebutEvenement[10]){ 
-	EVENEMENT *e = rechercher(nomEvenement,dateDebutEvenement); 
+void supprimerEvenement(char nomEvenement[100],char dateDebutEvenement[10]){ 
+	EVENEMENT *e = rechercherEvenement(nomEvenement,dateDebutEvenement); 
 	EVENEMENT *temp = tete;
 	if(e != NULL){	
 		if(tete == e){
@@ -53,6 +53,12 @@ void supprimer(char nomEvenement[100],char dateDebutEvenement[10]){
 			else
 				temp->suivant = NULL;
 		}
+
+		free(e->dateDebut);
+		free(e->dateFin);
+		/*if(e->participants != NULL)
+			libererPersonne(e->participants);*/
+		free(e);
 	}else
 		printf("Evènement inexistant!\n");	
 }

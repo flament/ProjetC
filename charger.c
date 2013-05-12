@@ -4,8 +4,56 @@
 #include <string.h>
 
 extern EVENEMENT *tete;
+extern PERSONNE *teteListePers;
 
-void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50]){
+void chargerListePersonnes(char nom[100], char prenom[100], char email[100]){
+	PERSONNE *pers = (PERSONNE *)malloc(sizeof(PERSONNE));
+	
+	strcpy(pers->nom,nom);
+	strcpy(pers->prenom,prenom);
+	strcpy(pers->email,email);
+
+	pers->suivant = teteListePers;
+	teteListePers = pers;
+}
+
+void lectureFichierParticipants(char *nomFichier){
+	char *m_tP,nomP[100],prenomP[100],emailP[100],ligneP[200],carP;
+	int nb1 = 0;
+	FILE *f1 = fopen(nomFichier, "r");
+	
+	if(f1 != NULL){
+		carP = fgetc(f1);
+		
+		while(carP != EOF){
+			while (carP != '\n'){
+				ligneP[nb1]=carP;
+				nb1++;
+				carP=fgetc(f1);
+			}
+			ligneP[nb1]='\0';
+					
+			if(strstr(ligneP, "Nom du participant") != NULL){
+				m_tP = strtok(ligneP,":");
+				strcpy(nomP , &ligneP[strlen(m_tP)+2]);
+			}else if(strstr(ligneP, "Prénom du participant") != NULL){
+				m_tP = strtok(ligneP,":");
+				strcpy(prenomP , &ligneP[strlen(m_tP)+2]);
+			}else if(strstr(ligneP, "Email du participant") != NULL){
+				m_tP = strtok(ligneP,":");
+				strcpy(emailP ,&ligneP[strlen(m_tP)+2]);
+			}else if(strstr(ligneP, "-------------------------------") != NULL){
+				chargerListePersonnes(nomP,prenomP,emailP);
+			}
+			nb1 = 0;
+			carP = fgetc(f1); 
+		}
+		fclose(f1);
+	}else
+		printf("Fichier introuvable\n");
+}
+
+void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50],PERSONNE *p){
 	EVENEMENT *e = (EVENEMENT *)malloc(sizeof(EVENEMENT));
 	
 	strcpy(e->nom,nom);
@@ -13,21 +61,22 @@ void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDe
 	strcpy(e->nomLieu,lieu);
 	e->dateDebut = convertirStringToDate(dateDebut,heureDebut);	
 	e->dateFin = convertirStringToDate(dateFin,heureFin);	
-	/*e->participants = p;*/	
+	e->participants = p;
 	e->suivant = tete;
 	tete = e;	
 }
 
-void charger(char *nomFichier){
-	
-	char *nom,*lieu,*desc,*dateDeb,*dateFin,*heureDeb,*heureFin,*allDay,ligne[350],car;
-	char *m_t,*m_t2,*m_t3,*m_t4,*m_t5,*m_t6;
-   int nb = 0;
-	
+void lectureFichierEvenement(char *nomFichier){
+	char *m_t,nom[100],lieu[100],desc[200],dateDeb[10],dateFin[10],heureDeb[5],heureFin[5],*participant,ligne[350],car;
+	PERSONNE *temp;	
+	PERSONNE *p = (PERSONNE *)malloc(sizeof(PERSONNE));
+	p = NULL;
+	int nb = 0,exit = 1;
 	FILE *f1 = fopen(nomFichier, "r");
+	
 	if(f1 != NULL){
 		car = fgetc(f1);
-
+		
 		while(car != EOF){
 			while (car != '\n'){
 				ligne[nb]=car;
@@ -35,38 +84,75 @@ void charger(char *nomFichier){
 				car=fgetc(f1);
 			}
 			ligne[nb]='\0';
-			nb = 0;
-			car = fgetc(f1); 
-	
-			if(strcmp(ligne,"Subject, Start Date, Start Time, End Date, End Time, All Day, Location,  Description")){
-				nom = strtok(ligne,", ");		
-				m_t = &ligne[(int)(strlen(nom))+2];
-				dateDeb = strtok(m_t,", ");			
-				m_t2 = &m_t[(int)(strlen(dateDeb))+2];	
-				heureDeb = strtok(m_t2,", ");
-				m_t3 = &m_t2[strlen(heureDeb)+2];
-				dateFin = strtok(m_t3,", ");
-				m_t4 = &m_t3[strlen(dateFin)+2];
-				heureFin = strtok(m_t4,", ");
-				m_t5 = &m_t4[strlen(heureFin)+2];
-				allDay = strtok(m_t5,", ");
-				m_t6 = &m_t5[strlen(allDay)+2];
-				lieu = strtok(m_t6,", ");
-				desc = &m_t6[strlen(lieu)+2];
-					 
-  				chargerEvenement(nom,lieu,desc,dateDeb,heureDeb,dateFin,heureFin);
-		/*printf("nom Evt: %s\n",nom);
-		printf("dd: %s\n",dateDeb);
-		printf("hd: %s\n",heureDeb);
-		printf("Lieu: %s\n",lieu);
-		printf("desc: %s\n",desc);
-		printf("hf: %s\n",heureFin);
-		printf("df: %s\n",dateFin);*/
+					
+			if(strstr(ligne, "Nom de l'évènement") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(nom , &ligne[strlen(m_t)+2]);
+			}else if(strstr(ligne, "Nom du lieu de l'évènement") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(lieu , &ligne[strlen(m_t)+2]);
+			}else if(strstr(ligne, "Description de l'évènement") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(desc , &ligne[strlen(m_t)+2]);
+			}else if(strstr(ligne, "Date de début de l'évènement") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(dateDeb , &ligne[strlen(m_t)+2]);
+			}else if(strstr(ligne, "Heure de début de l'évènement") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(heureDeb , &ligne[strlen(m_t)+2]);
+			}else if(strstr(ligne, "Date de fin de l'évènement") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(dateFin , &ligne[strlen(m_t)+2]);
+			}else if(strstr(ligne, "Heure de fin de l'évènement") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(heureFin , &ligne[strlen(m_t)+2]);
+			}else if(strstr(ligne, "Liste des participants de l'évènement") != NULL){
+				
+				while(exit){											
+					nb = 0;
+					car = fgetc(f1); 
+					while (car != '\n'){
+						ligne[nb]=car;
+						nb++;
+						car=fgetc(f1);
+					}
+					ligne[nb]='\0';
+					
+					if(strstr(ligne, "-------------------------------") != NULL)
+						exit = 0;
+					else{
+						m_t = strtok(ligne,")");
+						participant = &ligne[strlen(m_t)+2];
+						temp = testPersonneDejaExistente(participant);
+						
+						if(p != NULL){
+							temp->suivant = p;
+							p = temp;
+						}else
+							p = temp;
+
+					}
+				}
 			}
+			
+		 if(strstr(ligne, "-------------------------------") != NULL){
+				chargerEvenement(nom,lieu,desc,dateDeb,heureDeb,dateFin,heureFin,p);
+				p = NULL;
+			}
+			nb = 0;
+			exit = 1;
+			car = fgetc(f1); 
 		}
+		fclose(f1);
+		/*free(p); free(temp);*/
 	}else
 		printf("Fichier introuvable\n");
-	fclose(f1);
+}
+
+void charger(char *nomFichier){
+	
+	lectureFichierParticipants("participants.txt");
+	lectureFichierEvenement("evt.txt");
 }
 
 

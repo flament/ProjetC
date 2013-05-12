@@ -16,11 +16,11 @@ void ecrireUnEvenement(FILE* c,EVENEMENT *e){
 	fprintf(c,"%s, %s, %s, %s, %s, false, %s, %s\n",e->nom,startDate,startTime,endDate,endTime,e->nomLieu,e->description);		
 }
 
-void ecritureCSV(){
+void ecritureCSV(char *fichier){
 	FILE *calendrier;
 	EVENEMENT *temp = tete;
-	
-	calendrier =  fopen("Calendrier.csv","w");
+
+	calendrier =  fopen(fichier,"w");
 	if(calendrier != NULL){		
 		fputs("Subject, Start Date, Start Time, End Date, End Time, All Day, Location,  Description\n",calendrier);	
 		

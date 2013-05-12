@@ -5,8 +5,8 @@
 
 extern EVENEMENT *tete;
 
-void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
-	EVENEMENT *e = rechercher(nomEvenement,dateDebutEvenement);
+void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10]){
+	EVENEMENT *e = rechercherEvenement(nomEvenement,dateDebutEvenement);
 	PERSONNE * p = (PERSONNE *)malloc(sizeof(PERSONNE));
 	p = NULL;
 	int modifier = 0,participant = 0, exit = 0, exit2;
@@ -48,6 +48,7 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 					else
 						modifNom = "Nouvel évènement ";
 				}
+
 				strcpy(e->nom,modifNom);
 				break;
 			case 2 :
@@ -67,6 +68,7 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 					else
 						modifLieu = "Inconnu";
 				}
+
 				strcpy(e->nomLieu,modifLieu);
 				break;
 			case 3 :
@@ -76,6 +78,7 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 					modifDateDeb = strtok(dateDebTemp,"\n");
 				else
 					modifDateDeb = "Inconnue";
+
 				while(!formatDateValide(modifDateDeb)){
 					printf("Date de début de l'évènement : ");
 					fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
@@ -85,6 +88,7 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 					else
 						modifDateDeb = "Inconnue";
 				}
+
 				strftime(heure, sizeof(heure), "%H:%M", e->dateDebut); 
 				e->dateDebut = convertirStringToDate(modifDateDeb,heure);
 				break;
@@ -144,6 +148,7 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 					else
 						modifHeureFin = "Inconnue";
 				}
+
 				strftime(date, sizeof(date), "%d/%m/%Y", e->dateFin);
 				e->dateFin = convertirStringToDate(date,modifHeureFin);
 				break;
@@ -164,6 +169,7 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 					else
 						modifDesc = "Inconnue";
 				}
+
 				strcpy(e->description,modifDesc);
 				break;
 			case 8 :
@@ -175,18 +181,21 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 					switch(participant){
 						case 1 :
 							p = ajouterParticipant();
+							e->participants = p;	
 							break;
 						case 2 :
 							/* faire dérouler les personnes avec un numéro devant et supprimer la personne ainsi selectionnée*/
-							printf("\n%s\n",afficherParticipants());
 							if(e->participants == NULL){
 								printf("Il n'y a aucun participant\n");
 							}else{
+								printf("\n%s\n",afficherParticipants());
 								printf("\nQuel participant souhaitez-vous enlever de l'évènement? (rentrer son email)\n");
 								scanf("%100s",supprEmail);
 								getchar();
-								supprimerParticipantEvt(supprEmail);
+								p = supprimerParticipantEvt(supprEmail);
+								e->participants = p;
 							}
+							/*free(afficherParticipants());*/
 							break;
 						case 3 :
 							exit2 = 1;
@@ -195,7 +204,7 @@ void modifier(char nomEvenement[100],char dateDebutEvenement[10]){
 							printf("Cette valeur n'est pas valide, veuillez rentrer une valeur valide");					
 					}
 				}
-				e->participants = p;						
+									
 				break;
 			case 9 :
 					exit = 1;

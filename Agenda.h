@@ -14,6 +14,12 @@
 enum Fonc {eleve,professeur};
 typedef enum Fonc Fonction;
 
+struct Theme{
+    char nom[100];
+	 struct Theme *suivant;
+};
+typedef struct Theme THEME;
+
 struct Personne{
     char nom[100];
     char prenom[100];
@@ -35,23 +41,40 @@ struct Evenement{
 };
 typedef struct Evenement EVENEMENT;
 
+
+void ajouterTheme();
+void supprimerTheme(char nom[100]);
+void modifierTheme(char nom[100]);
+THEME *rechercherTheme(char nom[100]);
+char *afficherThemes();
+
+void libererEvenement(EVENEMENT* e);
+void libererPersonne(PERSONNE* p);
+void libererTheme(THEME* t);
+
 int formatDateValide(char date[25]);
 int formatHeureValide(char h[50]);
 int stringValide(char *s);
 int dateFinValide(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);
 int emailValide(char email[100]);
+int nomFichierValide(char *nom);
 
-
-void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50]);
+void chargerListePersonnes(char *nom, char *prenom, char *email);
+void lectureFichierParticipants(char *nomFichier);
+void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50],PERSONNE *p);
+void lectureFichierEvenement(char *nomFichier);
 void charger(char *nomFichier);
+
+
 void ecrireUnEvenement(FILE* c,EVENEMENT *e);
-void ecritureCSV();
-void enregistrerFormatTxt();
-void enregistrerParticipants();
+void ecritureCSV(char *fichier);
+void enregistrerFormatTxt(char *fichier);
+void enregistrerParticipants(char *fichier);
+void enregistrer(char *nomFichier, char nomTheme[100]);
 
 PERSONNE *ajouterParticipant();
 PERSONNE *rechercherParticipant(char email[100]);
-void supprimerParticipantEvt(char email[100]);
+PERSONNE * supprimerParticipantEvt(char email[100]);
 void modifierParticipant(char email[100]);
 char *afficherParticipants();
 void recuperationParticipantsEvt(PERSONNE *p);
@@ -61,9 +84,9 @@ PERSONNE *testPersonneDejaExistente(char email[100]);
 struct tm* convertirStringToDate(char s[50], char h[50]);
 int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);
 
-EVENEMENT *rechercher(char nomEvenement[100],char dateDebutEvenement[10]);
-void supprimer(char nomEvenement[100],char dateDebutEvenement[10]);
-void modifier(char nomEvenement[100],char dateDebutEvenement[10]);
+EVENEMENT *rechercherEvenement(char nomEvenement[100],char dateDebutEvenement[10]);
+void supprimerEvenement(char nomEvenement[100],char dateDebutEvenement[10]);
+void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10]);
 void ajouterEvenement();
 #endif	/* AGENDA_H */
 

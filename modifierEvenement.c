@@ -5,15 +5,13 @@
 
 extern EVENEMENT *tete;
 
-void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10]){
-	EVENEMENT *e = rechercherEvenement(nomEvenement,dateDebutEvenement);
+void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char heureDeb[5]){
+	EVENEMENT *e = rechercherEvenement(nomEvenement,dateDebutEvenement,heureDeb);
 	PERSONNE * p = (PERSONNE *)malloc(sizeof(PERSONNE));
 	p = NULL;
 	int modifier = 0,participant = 0, exit = 0, exit2;
-	char *modifNom,*modifDesc,*modifLieu,*modifDateDeb,*modifDateFin,*modifHeureDeb,*modifHeureFin;
-	char dateDebTemp[50], dateFinTemp[50],heureDebTemp[50],heureFinTemp[50],nomTemp[101],lieuTemp[101],descTemp[201],supprEmail[101];
-	char heure[5],date[10];
-
+	char *modifDateDeb,*modifDateFin,*modifHeureDeb,*modifHeureFin;
+	char heureD[256],heureF[256],dateD[256],dateF[256],supprEmail[101];
 
 	if(e == NULL){
 		printf("Evenement inexistant\n");	
@@ -31,146 +29,59 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10]){
 		
 		switch(modifier){
 			case 1 :
-				printf("Quel nom voulez vous donner ?");
-				fgets(nomTemp, sizeof(nomTemp), stdin);
-				
-				if(strcmp(nomTemp,"\n"))
-					modifNom = strtok(nomTemp,"\n");
-				else
-					modifNom = "Nouvel évènement ";
-
-				while(!stringValide(modifNom)){
-					printf("Nom de l'évènement : ");
-					fgets(nomTemp, sizeof(nomTemp), stdin);
-					
-					if(strcmp(nomTemp,"\n"))
-						modifNom = strtok(nomTemp,"\n");
-					else
-						modifNom = "Nouvel évènement ";
-				}
-
-				strcpy(e->nom,modifNom);
+				strcpy(e->nom,entreeNom());
 				break;
 			case 2 :
-				printf("Quel est le lieu ?");
-				fgets(lieuTemp, sizeof(lieuTemp), stdin);
-				
-				if(strcmp(lieuTemp,"\n"))
-					modifLieu = strtok(lieuTemp,"\n");
-				else
-					modifLieu = "Inconnu";
-
-				while(!stringValide(modifLieu)){
-					printf("Lieu de l'évènement : ");
-					fgets(lieuTemp, sizeof(lieuTemp), stdin);
-					if(strcmp(lieuTemp,"\n"))
-						modifLieu = strtok(lieuTemp,"\n");
-					else
-						modifLieu = "Inconnu";
-				}
-
-				strcpy(e->nomLieu,modifLieu);
+				strcpy(e->nomLieu,entreeLieu());
 				break;
 			case 3 :
-				printf("Quelle est la date de début ?");
-				fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
-				if(strcmp(dateDebTemp,"\n"))
-					modifDateDeb = strtok(dateDebTemp,"\n");
+				modifDateDeb = entreeDateDebut();			
+				strftime(heureD, sizeof(heureD), "%H:%M", e->dateDebut);
+				strftime(heureF, sizeof(heureF), "%H:%M", e->dateFin);
+				strftime(dateF, sizeof(dateF), "%d/%m/%Y", e->dateFin);
+
+				if(dateFinValide(modifDateDeb,dateF,heureD,heureF) && emplacementDispo(modifDateDeb,dateF,heureD,heureF))
+					e->dateDebut = convertirStringToDate(modifDateDeb,heureD);
 				else
-					modifDateDeb = "Inconnue";
-
-				while(!formatDateValide(modifDateDeb)){
-					printf("Date de début de l'évènement : ");
-					fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
-					
-					if(strcmp(dateDebTemp,"\n"))
-						modifDateDeb = strtok(dateDebTemp,"\n");
-					else
-						modifDateDeb = "Inconnue";
-				}
-
-				strftime(heure, sizeof(heure), "%H:%M", e->dateDebut); 
-				e->dateDebut = convertirStringToDate(modifDateDeb,heure);
+					printf("Modification non prise en compte\n");
+				
 				break;
 			case 4 :
-				printf("Quelle est l'heure de début ?");
-				fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
+				modifHeureDeb = entreeHeureDebut();			
+				strftime(dateD, sizeof(dateD), "%d/%m/%Y", e->dateDebut);
+				strftime(heureF, sizeof(heureF), "%H:%M", e->dateFin);
+				strftime(dateF, sizeof(dateF), "%d/%m/%Y", e->dateFin);
 				
-				if(strcmp(heureDebTemp,"\n"))
-					modifHeureDeb = strtok(heureDebTemp,"\n");
+				if(dateFinValide(dateD,dateF,modifHeureDeb,heureF))
+					e->dateDebut = convertirStringToDate(dateD,modifHeureDeb);
 				else
-					modifHeureDeb = "Inconnue";
-				
-				while(!formatHeureValide(modifHeureDeb)){
-					printf("Heure de début de l'évènement : ");
-					fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
-					
-					if(strcmp(heureDebTemp,"\n"))
-						modifHeureDeb = strtok(heureDebTemp,"\n");
-					else
-						modifHeureDeb = "Inconnue";
-				}
-				strftime(date, sizeof(date), "%d/%m/%Y", e->dateDebut);
-				e->dateDebut = convertirStringToDate(date,modifHeureDeb);
+					printf("Modification non prise en compte\n");
 				break;
 			case 5 :
-				printf("Quelle est la date de fin ?");
-				fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
-				if(strcmp(dateFinTemp,"\n"))
-					modifDateFin = strtok(dateFinTemp,"\n");
+				modifDateFin = entreeDateFin();
+				strftime(heureF, sizeof(heureF), "%H:%M", e->dateFin);
+				strftime(dateD, sizeof(dateD), "%d/%m/%Y", e->dateDebut);
+				strftime(heureD, sizeof(heureD), "%H:%M", e->dateDebut);
+
+				if(dateFinValide(dateD,modifDateFin,heureD,heureF) && emplacementDispo(dateD,modifDateFin,heureD,heureF))		
+					e->dateFin = convertirStringToDate(modifDateFin,heureF);
 				else
-					modifDateFin = "Inconnue";
-				
-				while(!formatDateValide(modifDateFin)){
-					printf("Date de fin de l'évènement : ");
-					fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
-					if(strcmp(dateFinTemp,"\n"))
-						modifDateFin = strtok(dateFinTemp,"\n");
-					else
-						modifDateFin = "Inconnue";
-				}
-				strftime(heure, sizeof(heure), "%H:%M", e->dateFin);
-				e->dateFin = convertirStringToDate(modifDateFin,heure);
+					printf("Modification non prise en compte\n");
+
 				break;
 			case 6 :
-				printf("Quelle est l'heure de fin ?");
-				fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
-				if(strcmp(heureFinTemp,"\n"))
-					modifHeureFin = strtok(heureFinTemp,"\n");
+				modifHeureFin = entreeHeureFin();
+				strftime(dateF, sizeof(dateF), "%d/%m/%Y", e->dateFin);	
+				strftime(dateD, sizeof(dateD), "%d/%m/%Y", e->dateDebut);
+				strftime(heureD, sizeof(heureD), "%H:%M", e->dateDebut);
+		
+				if(dateFinValide(dateD,dateF,heureD,modifHeureFin))
+					e->dateFin = convertirStringToDate(dateF,modifHeureFin);
 				else
-					modifHeureFin = "Inconnue";
-				
-				while(!formatHeureValide(modifHeureFin)){
-					printf("Heure de fin de l'évènement : ");
-					fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
-					if(strcmp(heureFinTemp,"\n"))
-						modifHeureFin = strtok(heureFinTemp,"\n");
-					else
-						modifHeureFin = "Inconnue";
-				}
-
-				strftime(date, sizeof(date), "%d/%m/%Y", e->dateFin);
-				e->dateFin = convertirStringToDate(date,modifHeureFin);
+					printf("Modification non prise en compte\n");
 				break;
 			case 7 :
-				printf("Quelle est la nouvelle description ?");
-				fgets(descTemp, sizeof(descTemp), stdin);
-				
-				if(strcmp(descTemp,"\n"))
-					modifDesc = strtok(descTemp,"\n");
-				else
-					modifDesc = "Inconnue";
-				while(!stringValide(modifDesc)){
-					printf("Description de l'évènement : ");
-					fgets(descTemp, sizeof(descTemp), stdin);
-					
-					if(strcmp(descTemp,"\n"))
-						modifDesc = strtok(descTemp,"\n");
-					else
-						modifDesc = "Inconnue";
-				}
-
-				strcpy(e->description,modifDesc);
+				strcpy(e->description,entreeDescription());
 				break;
 			case 8 :
 				while(!exit2){
@@ -203,8 +114,7 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10]){
 						default :
 							printf("Cette valeur n'est pas valide, veuillez rentrer une valeur valide");					
 					}
-				}
-									
+				}								
 				break;
 			case 9 :
 					exit = 1;

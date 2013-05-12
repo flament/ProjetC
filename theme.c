@@ -102,11 +102,6 @@ THEME *rechercherTheme(char nom[100]){
 	res = NULL;
 	int reussi = 0;
 	
-	/*if(!strcmp(teteTheme->nom, nom)){
-		res = teteTheme;
-		reussi = 1;
-	}*/
-
 	while(temp != NULL && reussi == 0){
 		if(!strcmp(temp->nom,nom)){
 				reussi = 1;

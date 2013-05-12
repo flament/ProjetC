@@ -15,44 +15,16 @@ void recuperationParticipantsEvt(PERSONNE *p){
 }
 
 PERSONNE *ajouterParticipant(){
+	char *prenom, *nom, *email;
 	PERSONNE *pers = (PERSONNE *)malloc(sizeof(PERSONNE));
 	/*temp permettra d'insérer la nouvelle Personne dans la liste de tous les participants de tous les évènements*/
 	PERSONNE * temp = (PERSONNE *)malloc(sizeof(PERSONNE));
 	PERSONNE *test = (PERSONNE *)malloc(sizeof(PERSONNE));
 	test = NULL;
-
-	char *prenom, *nom, *email;
-	char prenomTemp[101], nomTemp[101],emailTemp[101];
-	/* mdp fct */
-	printf("Nom :");
-	fgets(nomTemp, sizeof(nomTemp), stdin);
-	if(strcmp(nomTemp,"\n"))
-		nom = strtok(nomTemp,"\n");
-	else
-		nom = "Inconnu ";
 	
-	printf("Prénom :");
-	fgets(prenomTemp, sizeof(prenomTemp), stdin);
-	if(strcmp(prenomTemp,"\n"))
-		prenom = strtok(prenomTemp,"\n");
-	else
-		prenom = "Inconnu ";
-		
-	printf("Email :");
-	fgets(emailTemp, sizeof(emailTemp), stdin);
-	if(strcmp(emailTemp,"\n"))
-		email = strtok(emailTemp,"\n");
-	else
-		email = "Inconnu ";
-	
-	while(!emailValide(email)){
-		printf("Email: ");
-		fgets(emailTemp, sizeof(emailTemp), stdin);
-		if(strcmp(emailTemp,"\n"))
-			email = strtok(emailTemp,"\n");
-		else
-			email = "Inconnu ";
-	}
+	nom = entreeNomP();
+	prenom = entreePrenomP();
+	email = entreeEmailP();
 	
 	if(tetePers != NULL)
 		test = rechercherParticipant(email);
@@ -94,11 +66,6 @@ PERSONNE *testPersonneDejaExistente(char email[100]){
 	PERSONNE *res = (PERSONNE *)malloc(sizeof(PERSONNE));
 	res = NULL;
 	int reussi = 0;
-	
-	/*if(!strcmp(teteListePers->email, email)){
-		res = teteListePers;
-		reussi = 1;
-	}*/
 
 	while(temp != NULL && reussi == 0){
 		if(!strcmp(temp->email,email)){
@@ -116,11 +83,6 @@ PERSONNE *rechercherParticipant(char email[100]){
 	res = NULL;
 	int reussi = 0;
 	
-	/*if(!strcmp(tetePers->email, email)){
-		res = tetePers;
-		reussi = 1;
-	}*/
-
 	while(temp != NULL && reussi == 0){
 		if(!strcmp(temp->email,email)){
 				reussi = 1;
@@ -161,7 +123,6 @@ void modifierParticipant(char email[100]){
 	PERSONNE *test = testPersonneDejaExistente(email);
 
 	char *modifPrenom, *modifNom, *modifEmail;
-	char prenomTemp[101], nomTemp[101],emailTemp[101];
 	int modifier = 0, exit = 0;
 
 	if(p != NULL){
@@ -172,47 +133,17 @@ void modifierParticipant(char email[100]){
 
 			switch(modifier){
 				case 1 :
-					printf("Quel nom voulez vous donner ?");
-					fgets(nomTemp, sizeof(nomTemp), stdin);
-					
-					if(strcmp(nomTemp,"\n"))
-						modifNom = strtok(nomTemp,"\n");
-					else
-						modifNom = "Inconnu ";
-					
+					modifNom = entreeNom();				
 					strcpy(p->nom,modifNom);
 					strcpy(test->nom,modifNom);
 					break;
 				case 2 :
-					printf("Quel prénom voulez vous donner ?");
-					fgets(prenomTemp, sizeof(prenomTemp), stdin);
-					
-					if(strcmp(prenomTemp,"\n"))
-						modifPrenom = strtok(prenomTemp,"\n");
-					else
-						modifPrenom = "Inconnu ";
-					
+					modifPrenom = entreePrenomP();
 					strcpy(p->prenom,modifPrenom);
 					strcpy(test->prenom,modifPrenom);
 					break;
 				case 3 :
-					printf("Quel est le nouvel email ?");
-					fgets(emailTemp, sizeof(emailTemp), stdin);
-					
-					if(strcmp(emailTemp,"\n"))
-						modifEmail = strtok(emailTemp,"\n");
-					else
-						modifEmail = "Inconnu ";
-									
-					while(!emailValide(modifEmail)){
-						printf("Quel est le nouvel email ?");
-						fgets(emailTemp, sizeof(emailTemp), stdin);
-						
-						if(strcmp(emailTemp,"\n"))
-							modifEmail = strtok(emailTemp,"\n");
-						else
-							modifEmail = "Inconnu ";
-					}
+					modifEmail = entreeEmailP();
 
 					/*email existe mais ne correspond pas au nom et prénom rentrés*/
 					if(test != NULL && (strcmp(test->nom,p->nom) || strcmp(test->prenom,p->prenom)))

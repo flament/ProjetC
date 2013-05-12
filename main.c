@@ -32,8 +32,9 @@ void libererTheme(THEME* t){
 	free(t);
 }
 void menuGestion(char theme[100]){
-	char nomTemp[100], *nom,dateTemp[11], *date;
+	char nomTemp[100], *nom,dateTemp[12], *date,heureTemp[6],*heure,dateDebut[100],dateFin[100];
 	char * msg = (char *)malloc((strlen(theme)+54)*sizeof(char)); 
+	EVENEMENT *e;
 	int choix, arret;
  	arret = 1;	
 	strcpy(msg,"\n-------------------Gestion de ");
@@ -62,40 +63,104 @@ void menuGestion(char theme[100]){
 				ajouterEvenement();
 				break;
 			case 2:
-				printf("Saisissez le nom de l'évènement à modifier:");
-				fgets(nomTemp, sizeof(nomTemp), stdin);
-				if(strcmp(nomTemp,"\n"))
-					nom = strtok(nomTemp,"\n");
-				else
-					nom = "";
+				if(tete == NULL)
+					printf("Il n'y a aucun évènement de créé\n");
+				else{
+					printf("\n%s\n",afficherEvenements());
+					printf("Saisissez le nom de l'évènement à modifier:");
+					fgets(nomTemp, sizeof(nomTemp), stdin);				
+					if(strcmp(nomTemp,"\n"))
+						nom = strtok(nomTemp,"\n");
+					else
+						nom = "";
 				
-				printf("Saisissez la date de début de l'évènement à modifier:");
-				fgets(dateTemp, sizeof(dateTemp), stdin);
-				if(strcmp(dateTemp,"\n"))
-					date = strtok(dateTemp,"\n");
-				else
-					date = "";
+					printf("Saisissez la date de début de l'évènement à modifier:");
+					fgets(dateTemp, sizeof(dateTemp), stdin);
+					if(strcmp(dateTemp,"\n"))
+						date = strtok(dateTemp,"\n");
+					else
+						date = "";
 
-				modifierEvenement(nom,date);
+					printf("Saisissez l'heure de début de l'évènement à modifier:");
+					fgets(heureTemp, sizeof(heureTemp), stdin);
+					if(strcmp(heureTemp,"\n"))
+						heure = strtok(heureTemp,"\n");
+					else
+						heure = "";
+
+					modifierEvenement(nom,date,heure);
+				}
 				break;
 			case 3:
-				printf("Saisissez le nom de l'évènement à supprimer:");
-				fgets(nomTemp, sizeof(nomTemp), stdin);
-				if(strcmp(nomTemp,"\n"))
-					nom = strtok(nomTemp,"\n");
-				else
-					nom = "";
+				if(tete == NULL)
+					printf("Il n'y a aucun évènement de créé\n");
+				else{
+					printf("\n%s\n",afficherEvenements());
+					
+					printf("Saisissez le nom de l'évènement à supprimer:");
+					fgets(nomTemp, sizeof(nomTemp), stdin);
+					if(strcmp(nomTemp,"\n"))
+						nom = strtok(nomTemp,"\n");
+					else
+						nom = "";
 				
-				printf("Saisissez la date de début de l'évènement à supprimer:");
-				fgets(dateTemp, sizeof(dateTemp), stdin);
-				if(strcmp(dateTemp,"\n"))
-					date = strtok(dateTemp,"\n");
-				else
-					date = "";
+					printf("Saisissez la date de début de l'évènement à supprimer:");
+					fgets(dateTemp, sizeof(dateTemp), stdin);
+					if(strcmp(dateTemp,"\n"))
+						date = strtok(dateTemp,"\n");
+					else
+						date = "";
 
-				supprimerEvenement(nom,date);
+					printf("Saisissez l'heure de début de l'évènement à supprimer:");
+					fgets(heureTemp, sizeof(heureTemp), stdin);
+					if(strcmp(heureTemp,"\n"))
+						heure = strtok(heureTemp,"\n");
+					else
+						heure = "";
+
+					supprimerEvenement(nom,date,heure);
+				}
 				break;
 			case 4:
+				if(tete == NULL)
+					printf("Il n'y a aucun évènement de créé\n");
+				else{
+					printf("\n%s\n",afficherEvenements());
+					printf("Saisissez le nom de l'évènement à consulter:");
+					fgets(nomTemp, sizeof(nomTemp), stdin);				
+					if(strcmp(nomTemp,"\n"))
+						nom = strtok(nomTemp,"\n");
+					else
+						nom = "";
+				
+					printf("Saisissez la date de début de l'évènement à consulter:");
+					fgets(dateTemp, sizeof(dateTemp), stdin);
+					if(strcmp(dateTemp,"\n"))
+						date = strtok(dateTemp,"\n");
+					else
+						date = "";
+
+					printf("Saisissez l'heure de début de l'évènement à consulter:");
+					fgets(heureTemp, sizeof(heureTemp), stdin);
+					if(strcmp(heureTemp,"\n"))
+						heure = strtok(heureTemp,"\n");
+					else
+						heure = "";
+
+					e = rechercherEvenement(nom,date,heure);
+					if(e != NULL){
+						printf("Nom : %s\nDescription : %s\nLieu : %s\n",e->nom,e->description,e->nomLieu);
+						strftime(dateDebut, sizeof(dateDebut), "%d/%m/%Y à %H:%M", e->dateDebut);
+						strftime(dateFin, sizeof(dateFin), "%d/%m/%Y à %H:%M", e->dateFin);
+						printf("Date de début : %s\nDate de fin : %s\n",dateDebut,dateFin);
+						recuperationParticipantsEvt(e->participants);
+						if(e->participants != NULL){
+							printf("Ses participants sont :\n");
+							printf("\t%s\n",afficherParticipants());
+						}
+					}
+				}
+
 				break;
 			case 5:
 				break;

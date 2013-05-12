@@ -75,6 +75,11 @@ void enregistrerParticipants(char *fichier);
 void enregistrer(char *nomFichier, char nomTheme[100]);
 void enregistrerTheme(char *nomFichier);
 
+
+char *entreeNomP();
+char *entreePrenomP();
+char *entreeEmailP();
+
 PERSONNE *ajouterParticipant();
 PERSONNE *rechercherParticipant(char email[100]);
 PERSONNE * supprimerParticipantEvt(char email[100]);
@@ -87,9 +92,17 @@ PERSONNE *testPersonneDejaExistente(char email[100]);
 struct tm* convertirStringToDate(char s[50], char h[50]);
 int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);
 
-EVENEMENT *rechercherEvenement(char nomEvenement[100],char dateDebutEvenement[10]);
-void supprimerEvenement(char nomEvenement[100],char dateDebutEvenement[10]);
-void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10]);
+char *entreeNom();
+char *entreeDescription();
+char *entreeLieu();
+char *entreeDateDebut();
+char *entreeHeureDebut();
+char *entreeDateFin();
+char *entreeHeureFin();
+EVENEMENT *rechercherEvenement(char nomEvenement[100],char dateDebutEvenement[10],char heureDeb[5]);
+void supprimerEvenement(char nomEvenement[100],char dateDebutEvenement[10],char heureDeb[5]);
+void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char heureDeb[5]);
 void ajouterEvenement();
+char *afficherEvenements();
 #endif	/* AGENDA_H */
 

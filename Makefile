@@ -15,8 +15,8 @@ PROG = agenda
 all : $(PROG)
 
 #edition de liens et production de l'executable
-$(PROG) :  verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o participants.o  ajouterEvenement.o modifierEvenement.o supprimerEvenement.o theme.o main.o
-	$(CC) $(CFLAGS) verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o participants.o ajouterEvenement.o modifierEvenement.o  supprimerEvenement.o theme.o main.o -o $(PROG) 
+$(PROG) :  verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o donneesParticipant.o participants.o donneesEvenement.o ajouterEvenement.o modifierEvenement.o supprimerEvenement.o theme.o main.o
+	$(CC) $(CFLAGS) verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o donneesParticipant.o participants.o donneesEvenement.o ajouterEvenement.o modifierEvenement.o  supprimerEvenement.o theme.o main.o -o $(PROG) 
 
 	
 # compilation du fichier verifs
@@ -47,9 +47,17 @@ conversion.o : conversion.c Agenda.h
 emplacementDispo.o : emplacementDispo.c Agenda.h
 	$(CC) $(CFLAGS) -c emplacementDispo.c 
 
+# compilation du fichier donneesParticipant
+donneesParticipant.o : donneesParticipant.c Agenda.h
+	$(CC) $(CFLAGS) -c donneesParticipant.c 
+
 # compilation du fichier participants
 participants.o : participants.c Agenda.h
 	$(CC) $(CFLAGS) -c participants.c  
+
+# compilation du fichier donneesEvenement
+donneesEvenement.o : donneesEvenement.c Agenda.h
+	$(CC) $(CFLAGS) -c donneesEvenement.c 
 
 # compilation du fichier ajouterEvenement
 ajouterEvenement.o : ajouterEvenement.c Agenda.h

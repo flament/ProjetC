@@ -113,6 +113,27 @@ int nomFichierValide(char *nom){
 	return res;
 }
 
+int chargementValide(char *nom, char *theme){
+	int res = 0;
+	char *s = (char *) malloc((strlen(theme)+2)*sizeof(char));
+	strcpy(s,"_");
+	strcat(s,theme);
+
+	if(strstr(nom,s) != NULL)
+		res = 1;
+	else
+		printf("Chargement de fichier invalide! Vous devez charger un fichier en rapport avec le thème choisi\n");
+
+	if(res == 1){
+		if((strstr(nom,"_Participants") != NULL) || (strstr(nom, ".txt") == NULL)){
+				res = 0;
+				printf("Vous ne devez charger que le fichier .txt contenant les évènements (en rapport avec le thème)\n");
+		}
+	}
+
+	return res;
+}
+
 int dateFinValide(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]){
 	int jourDeb, jourFin, moisDeb, moisFin, anneeDeb, anneeFin, heureD, heureF, minuteDeb, minuteFin;
 	char * m_t;

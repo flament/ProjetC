@@ -11,7 +11,7 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10]){
 	p = NULL;
 	int modifier = 0,participant = 0, exit = 0, exit2;
 	char *modifNom,*modifDesc,*modifLieu,*modifDateDeb,*modifDateFin,*modifHeureDeb,*modifHeureFin;
-	char dateDebTemp[50], dateFinTemp[50],heureDebTemp[50],heureFinTemp[50],nomTemp[100],lieuTemp[100],descTemp[200],supprEmail[100];
+	char dateDebTemp[50], dateFinTemp[50],heureDebTemp[50],heureFinTemp[50],nomTemp[101],lieuTemp[101],descTemp[201],supprEmail[101];
 	char heure[5],date[10];
 
 

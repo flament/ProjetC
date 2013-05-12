@@ -32,7 +32,7 @@ void libererTheme(THEME* t){
 	free(t);
 }
 void menuGestion(char theme[100]){
-	char nomTemp[100], *nom,dateTemp[10], *date;
+	char nomTemp[100], *nom,dateTemp[11], *date;
 	char * msg = (char *)malloc((strlen(theme)+54)*sizeof(char)); 
 	int choix, arret;
  	arret = 1;	
@@ -119,9 +119,10 @@ void menuGestion(char theme[100]){
 				if(strcmp(nomTemp,"\n"))
 					nom = strtok(nomTemp,"\n");
 				else
-					nom = "";				
-				
-				charger(nom);
+					nom = "";	
+			
+				if(chargementValide(nom,theme))
+					charger(nom);
 				break;
 			case 9:
 				arret = 0;
@@ -209,8 +210,25 @@ int main(int argc, char** argv) {
 				}
 				break;
 			case 5:
+				printf("Saisissez le nom du fichier à sauvegarder:");
+				fgets(nomTemp, sizeof(nomTemp), stdin);
+				if(strcmp(nomTemp,"\n"))
+					nom = strtok(nomTemp,"\n");
+				else
+					nom = "";
+				
+				if(nomFichierValide(nom))
+					enregistrerTheme(nom);
 				break;
 			case 6:
+				printf("Saisissez le nom du fichier à charger:");
+				fgets(nomTemp, sizeof(nomTemp), stdin);
+				if(strcmp(nomTemp,"\n"))
+					nom = strtok(nomTemp,"\n");
+				else
+					nom = "";		
+				
+					lectureFichierThemes(nom);
 				break;
 			case 7:
 				arret = 0;

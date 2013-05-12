@@ -13,7 +13,7 @@ void ajouterEvenement(){
 	p = NULL;
 	int participant = 0, exit = 0, choix;
 	char *nom,*desc,*nomLieu,*dateDebut,*dateFin,*heureDebut,*heureFin;
-	char dateDebTemp[50], dateFinTemp[50],heureDebTemp[50],heureFinTemp[50],nomTemp[100],lieuTemp[100],descTemp[200];
+	char dateDebTemp[50], dateFinTemp[50],heureDebTemp[50],heureFinTemp[50],nomTemp[101],lieuTemp[101],descTemp[201];
 	
 	printf("Nom de l'évènement : ");	
 	fgets(nomTemp, sizeof(nomTemp), stdin);

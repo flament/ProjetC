@@ -50,7 +50,7 @@ void lectureFichierParticipants(char *nomFichier){
 		}
 		fclose(f1);
 	}else
-		printf("Fichier introuvable\n");
+		printf("Fichier contenant les participants introuvable\n");
 }
 
 void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50],PERSONNE *p){
@@ -146,13 +146,18 @@ void lectureFichierEvenement(char *nomFichier){
 		fclose(f1);
 		/*free(p); free(temp);*/
 	}else
-		printf("Fichier introuvable\n");
+		printf("Fichier .txt contenant les évènements introuvable \n");
 }
 
 void charger(char *nomFichier){
-	
-	lectureFichierParticipants("participants.txt");
-	lectureFichierEvenement("evt.txt");
+	char *temp = (char*)malloc((strlen(nomFichier)+1)*sizeof(char));
+	char *part = (char*)malloc((strlen(nomFichier)+14)*sizeof(char));
+	strcpy(temp,nomFichier);
+	part = strtok(nomFichier,".");
+	strcat(part,"_Participants.txt");
+
+	lectureFichierParticipants(part);
+	lectureFichierEvenement(temp);
 }
 
 

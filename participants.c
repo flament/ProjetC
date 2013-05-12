@@ -22,7 +22,7 @@ PERSONNE *ajouterParticipant(){
 	test = NULL;
 
 	char *prenom, *nom, *email;
-	char prenomTemp[100], nomTemp[100],emailTemp[100];
+	char prenomTemp[101], nomTemp[101],emailTemp[101];
 	/* mdp fct */
 	printf("Nom :");
 	fgets(nomTemp, sizeof(nomTemp), stdin);
@@ -161,7 +161,7 @@ void modifierParticipant(char email[100]){
 	PERSONNE *test = testPersonneDejaExistente(email);
 
 	char *modifPrenom, *modifNom, *modifEmail;
-	char prenomTemp[80], nomTemp[80],emailTemp[80];
+	char prenomTemp[101], nomTemp[101],emailTemp[101];
 	int modifier = 0, exit = 0;
 
 	if(p != NULL){

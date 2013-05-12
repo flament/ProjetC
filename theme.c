@@ -6,7 +6,7 @@
 THEME *teteTheme = NULL;
 
 void ajouterTheme(){
-	char nomTemp[100], *nom;
+	char nomTemp[101], *nom;
 	THEME *theme = (THEME *)malloc(sizeof(THEME));
 	THEME *test;
 	test = NULL;
@@ -62,7 +62,7 @@ void supprimerTheme(char nom[100]){
 }
 
 void modifierTheme(char nomT[100]){
-	char nomTemp[100], *nom;
+	char nomTemp[101], *nom;
 	THEME *t = rechercherTheme(nomT);
 	THEME *test;
 	test = NULL;
@@ -142,4 +142,60 @@ char *afficherThemes(){
 		temp = temp->suivant;
 	}
 	return res;
+}
+
+void enregistrerTheme(char *nomFichier){
+	THEME *temp = teteTheme;
+	FILE *f;
+	char *fichier = (char *)malloc((strlen(nomFichier)+5)*sizeof(char)); 
+	strcpy(fichier,nomFichier);
+	strcat(fichier,".txt");	
+
+	f =  fopen(fichier,"w");
+	if(f != NULL){				
+		while(temp != NULL){
+			fprintf(f,"Nom du thème : %s\n",temp->nom);
+			temp = temp->suivant;
+		}
+	fclose(f);
+	}
+	else
+		printf("Impossible d'ouvrir le fichier\n");
+}
+
+void chargerTheme(char *nom){
+	THEME *t = (THEME *)malloc(sizeof(THEME));
+	
+	strcpy(t->nom,nom);
+	t->suivant = teteTheme;
+	teteTheme = t;
+}
+
+void lectureFichierThemes(char *nomFichier){
+	char *m_t,nom[100],ligne[200],car;
+	int nb = 0;
+	FILE *f1 = fopen(nomFichier, "r");
+	
+	if(f1 != NULL){
+		car = fgetc(f1);
+		
+		while(car != EOF){
+			while (car != '\n'){
+				ligne[nb]=car;
+				nb++;
+				car=fgetc(f1);
+			}
+			ligne[nb]='\0';
+					
+			if(strstr(ligne, "Nom du thème") != NULL){
+				m_t = strtok(ligne,":");
+				strcpy(nom , &ligne[strlen(m_t)+2]);
+				chargerTheme(nom);
+			}
+			nb = 0;
+			car = fgetc(f1); 
+		}
+		fclose(f1);
+	}else
+		printf("Fichier introuvable\n");
 }

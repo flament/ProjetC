@@ -58,19 +58,22 @@ int stringValide(char *s);
 int dateFinValide(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]);
 int emailValide(char email[100]);
 int nomFichierValide(char *nom);
+int chargementValide(char *nom, char *theme);
 
 void chargerListePersonnes(char *nom, char *prenom, char *email);
 void lectureFichierParticipants(char *nomFichier);
 void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50],PERSONNE *p);
 void lectureFichierEvenement(char *nomFichier);
 void charger(char *nomFichier);
-
+void lectureFichierThemes(char *nomFichier);
+void chargerTheme(char *nom);
 
 void ecrireUnEvenement(FILE* c,EVENEMENT *e);
 void ecritureCSV(char *fichier);
 void enregistrerFormatTxt(char *fichier);
 void enregistrerParticipants(char *fichier);
 void enregistrer(char *nomFichier, char nomTheme[100]);
+void enregistrerTheme(char *nomFichier);
 
 PERSONNE *ajouterParticipant();
 PERSONNE *rechercherParticipant(char email[100]);

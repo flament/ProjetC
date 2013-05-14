@@ -21,15 +21,15 @@ void enregistrerFormatTxt(char *fichier){
 			strftime(startTime, sizeof(startTime), "%H:%M", temp->dateDebut);
 			strftime(endTime, sizeof(endTime), "%H:%M", temp->dateFin);
 
-			fprintf(f,"Nom de l'évènement : %s\n",temp->nom);
-			fprintf(f,"Nom du lieu de l'évènement : %s\n",temp->nomLieu);
-			fprintf(f,"Description de l'évènement : %s\n",temp->description);
-			fprintf(f,"Date de début de l'évènement : %s\n",startDate);
-			fprintf(f,"Heure de début de l'évènement : %s\n",startTime);
-			fprintf(f,"Date de fin de l'évènement : %s\n",endDate);
-			fprintf(f,"Heure de fin de l'évènement : %s\n",endTime);
+			fprintf(f,"Nom de l'événement : %s\n",temp->nom);
+			fprintf(f,"Nom du lieu de l'événement : %s\n",temp->nomLieu);
+			fprintf(f,"Description de l'événement : %s\n",temp->description);
+			fprintf(f,"Date de début de l'événement : %s\n",startDate);
+			fprintf(f,"Heure de début de l'événement : %s\n",startTime);
+			fprintf(f,"Date de fin de l'événement : %s\n",endDate);
+			fprintf(f,"Heure de fin de l'événement : %s\n",endTime);
 			if(temp->participants != NULL){
-				fputs("Liste des participants de l'évènement :\n",f);
+				fputs("Liste des participants de l'événement :\n",f);
 				count = 1;
 				pt = temp->participants;
 				

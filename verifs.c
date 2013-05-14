@@ -127,7 +127,7 @@ int chargementValide(char *nom, char *theme){
 	if(res == 1){
 		if((strstr(nom,"_Participants") != NULL) || (strstr(nom, ".txt") == NULL)){
 				res = 0;
-				printf("Vous ne devez charger que le fichier .txt contenant les évènements (en rapport avec le thème)\n");
+				printf("Vous ne devez charger que le fichier .txt contenant les événements (en rapport avec le thème)\n");
 		}
 	}
 

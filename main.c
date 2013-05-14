@@ -44,15 +44,14 @@ void menuGestion(char theme[100]){
 	while(arret){
 		printf("%s",msg);
 		printf("Que voulez-vous faire?\n");
-		printf("\t1)Créer un évènement\n");
-		printf("\t2)Modifier un évènement\n");
-		printf("\t3)Supprimer un évènement\n");
-		printf("\t4)Rechercher des infos sur un évènement\n");
-		printf("\t5)Consulter les créneaux disponible d'un jour donné\n");
-		printf("\t6)Consulter les évènements auxquels participe une personne\n");
-		printf("\t7)Sauvegarder le(s) évènement(s) créé(s)\n");
-		printf("\t8)Charger des évènements\n");
-		printf("\t9)Quitter\n");
+		printf("\t1)Créer un événement\n");
+		printf("\t2)Modifier un événement\n");
+		printf("\t3)Supprimer un événement\n");
+		printf("\t4)Rechercher des infos sur un événement\n");
+		printf("\t5)Consulter les créneaux disponibles d'un jour donné\n");
+		printf("\t6)Sauvegarder le(s) événement(s) créé(s)\n");
+		printf("\t7)Charger des événements\n");
+		printf("\t8)Quitter\n");
 		printf("Votre choix :\n");
 		
 		scanf("%1d",&choix);
@@ -165,20 +164,18 @@ void menuGestion(char theme[100]){
 			case 5:
 				break;
 			case 6:
-				break;
-			case 7:
 				printf("Saisissez le nom du fichier à sauvegarder:");
 				fgets(nomTemp, sizeof(nomTemp), stdin);
 				if(strcmp(nomTemp,"\n"))
 					nom = strtok(nomTemp,"\n");
 				else
-					nom = "";
+					nom = "fichier";
 				
 				if(nomFichierValide(nom))
 					enregistrer(nom,theme);
 
 				break;
-			case 8:
+			case 7:
 				printf("Saisissez le nom du fichier à charger:");
 				fgets(nomTemp, sizeof(nomTemp), stdin);
 				if(strcmp(nomTemp,"\n"))
@@ -189,12 +186,12 @@ void menuGestion(char theme[100]){
 				if(chargementValide(nom,theme))
 					charger(nom);
 				break;
-			case 9:
+			case 8:
 				arret = 0;
 				free(msg);
 				break;
 			default :
-				printf("Ceci n'est pas un choix valide, veuillez entrer un chiffre entre 1 et 9\n");
+				printf("Ceci n'est pas un choix valide, veuillez entrer un chiffre entre 1 et 8\n");
 		}
 	}
 

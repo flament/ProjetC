@@ -85,28 +85,28 @@ void lectureFichierEvenement(char *nomFichier){
 			}
 			ligne[nb]='\0';
 					
-			if(strstr(ligne, "Nom de l'évènement") != NULL){
+			if(strstr(ligne, "Nom de l'événement") != NULL){
 				m_t = strtok(ligne,":");
 				strcpy(nom , &ligne[strlen(m_t)+2]);
-			}else if(strstr(ligne, "Nom du lieu de l'évènement") != NULL){
+			}else if(strstr(ligne, "Nom du lieu de l'événement") != NULL){
 				m_t = strtok(ligne,":");
 				strcpy(lieu , &ligne[strlen(m_t)+2]);
-			}else if(strstr(ligne, "Description de l'évènement") != NULL){
+			}else if(strstr(ligne, "Description de l'événement") != NULL){
 				m_t = strtok(ligne,":");
 				strcpy(desc , &ligne[strlen(m_t)+2]);
-			}else if(strstr(ligne, "Date de début de l'évènement") != NULL){
+			}else if(strstr(ligne, "Date de début de l'événement") != NULL){
 				m_t = strtok(ligne,":");
 				strcpy(dateDeb , &ligne[strlen(m_t)+2]);
-			}else if(strstr(ligne, "Heure de début de l'évènement") != NULL){
+			}else if(strstr(ligne, "Heure de début de l'événement") != NULL){
 				m_t = strtok(ligne,":");
 				strcpy(heureDeb , &ligne[strlen(m_t)+2]);
-			}else if(strstr(ligne, "Date de fin de l'évènement") != NULL){
+			}else if(strstr(ligne, "Date de fin de l'événement") != NULL){
 				m_t = strtok(ligne,":");
 				strcpy(dateFin , &ligne[strlen(m_t)+2]);
-			}else if(strstr(ligne, "Heure de fin de l'évènement") != NULL){
+			}else if(strstr(ligne, "Heure de fin de l'événement") != NULL){
 				m_t = strtok(ligne,":");
 				strcpy(heureFin , &ligne[strlen(m_t)+2]);
-			}else if(strstr(ligne, "Liste des participants de l'évènement") != NULL){
+			}else if(strstr(ligne, "Liste des participants de l'événement") != NULL){
 				
 				while(exit){											
 					nb = 0;
@@ -146,7 +146,7 @@ void lectureFichierEvenement(char *nomFichier){
 		fclose(f1);
 		/*free(p); free(temp);*/
 	}else
-		printf("Fichier .txt contenant les évènements introuvable \n");
+		printf("Fichier .txt contenant les événements introuvable \n");
 }
 
 void charger(char *nomFichier){

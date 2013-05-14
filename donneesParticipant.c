@@ -22,7 +22,7 @@ char *entreePrenomP(){
 	char *prenom = (char *)malloc(101*sizeof(char));
 	char prenomTemp[101];
 
-	printf("Prénom :");
+	printf("Prénom du participant:");
 	fgets(prenomTemp, sizeof(prenomTemp), stdin);
 
 	if(strcmp(prenomTemp,"\n"))
@@ -37,7 +37,7 @@ char *entreeEmailP(){
 	char *email = (char *)malloc(101*sizeof(char));
 	char emailTemp[101];
 
-	printf("Email :");
+	printf("Email du participant:");
 	fgets(emailTemp, sizeof(emailTemp), stdin);
 
 	if(strcmp(emailTemp,"\n"))
@@ -46,7 +46,7 @@ char *entreeEmailP(){
 		strcpy(email , "Inconnu");
 	
 	while(!emailValide(email)){
-		printf("Email: ");
+		printf("Email du participant: ");
 		fgets(emailTemp, sizeof(emailTemp), stdin);
 
 		if(strcmp(emailTemp,"\n"))

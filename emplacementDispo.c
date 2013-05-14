@@ -34,18 +34,18 @@ int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char h
 					|| (temp->dateDebut->tm_hour == heureD && heureD < temp->dateFin->tm_hour && temp->dateDebut->tm_min <= minuteD)
 					||	(temp->dateDebut->tm_hour < heureD && heureD < temp->dateFin->tm_hour) 
 					|| (temp->dateDebut->tm_hour < heureD && heureD == temp->dateFin->tm_hour && minuteD < temp->dateFin->tm_min)){
-								printf("L'évènement ne peut commencer à cette heure-ci, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+								printf("L'événement ne peut commencer à cette heure-ci, un événement étant déjà en train de se dérouler à ce moment là.\n");
 								res = 0;
 					}else if(heureD < temp->dateDebut->tm_hour || (heureD == temp->dateDebut->tm_hour && minuteD < temp->dateDebut->tm_min)){
 							if(heureF > temp->dateDebut->tm_hour || (heureF == temp->dateDebut->tm_hour && minuteF > temp->dateDebut->tm_min)){
-								printf("L'évènement ne peut se terminer à cette heure-ci, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+								printf("L'événement ne peut se terminer à cette heure-ci, un événement étant déjà en train de se dérouler à ce moment là.\n");
 								res = 0;
 							}
 					}
 				}else if((temp->dateDebut->tm_mday < jourDeb && jourDeb < temp->dateFin->tm_mday)
 						||(temp->dateDebut->tm_mday == jourDeb && temp->dateDebut->tm_hour < heureD && jourDeb < temp->dateFin->tm_mday)
 						||(temp->dateDebut->tm_mday == jourDeb && temp->dateDebut->tm_hour == heureD && temp->dateDebut->tm_min <= minuteD && jourDeb < temp->dateFin->tm_mday)){
-					printf("L'évènement ne peut commencer ce jour là, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+					printf("L'événement ne peut commencer ce jour là, un événement étant déjà en train de se dérouler à ce moment là.\n");
 					res = 0;
 				}else if((temp->dateDebut->tm_mday > jourDeb && temp->dateDebut->tm_mday < jourFin)
 						||(temp->dateDebut->tm_mday == jourDeb && temp->dateDebut->tm_hour > heureD && temp->dateDebut->tm_mday < jourFin)
@@ -56,19 +56,19 @@ int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char h
 						||(temp->dateDebut->tm_mday == jourDeb && temp->dateDebut->tm_hour > heureD && temp->dateDebut->tm_mday == jourFin && temp->dateDebut->tm_hour == heureF && temp->dateDebut->tm_min < minuteF)
 						||(temp->dateDebut->tm_mday == jourDeb && temp->dateDebut->tm_hour == heureD && temp->dateDebut->tm_min > minuteD && temp->dateDebut->tm_mday == jourFin && temp->dateDebut->tm_hour < heureF)
 						||(temp->dateDebut->tm_mday == jourDeb && temp->dateDebut->tm_hour == heureD && temp->dateDebut->tm_min > minuteD && temp->dateDebut->tm_mday == jourFin && temp->dateDebut->tm_hour == heureF && temp->dateDebut->tm_min < minuteF)){
-					printf("L'évènement ne peut se terminer ce jour là, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+					printf("L'événement ne peut se terminer ce jour là, un événement étant déjà en train de se dérouler à ce moment là.\n");
 					res = 0;
 				}
 			}else if(((temp->dateDebut->tm_mon+1) < moisDeb && moisDeb < (temp->dateFin->tm_mon+1)) 
 						||((temp->dateDebut->tm_mon+1) == moisDeb && moisDeb < (temp->dateFin->tm_mon+1) && temp->dateDebut->tm_mday <= jourDeb) 
 						|| ((temp->dateDebut->tm_mon+1) < moisDeb && moisDeb == (temp->dateFin->tm_mon+1) && temp->dateFin->tm_mday > jourDeb)){
-							printf("L'évènement ne peut commencer ce mois là, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+							printf("L'événement ne peut commencer ce mois là, un événement étant déjà en train de se dérouler à ce moment là.\n");
 							res = 0;
 			}else if(((temp->dateDebut->tm_mon+1) > moisDeb	&& (temp->dateDebut->tm_mon+1) < moisFin)
 						||((temp->dateDebut->tm_mon+1) > moisDeb	&& (temp->dateDebut->tm_mon+1) == moisFin && temp->dateDebut->tm_mday < jourFin)
 						|| ((temp->dateDebut->tm_mon+1) == moisDeb && temp->dateDebut->tm_mday > jourDeb  && (temp->dateDebut->tm_mon+1) < moisFin)
 						|| ((temp->dateDebut->tm_mon+1) == moisDeb && temp->dateDebut->tm_mday > jourDeb && (temp->dateDebut->tm_mon+1) == moisFin && temp->dateDebut->tm_mday < jourFin)){						
-								printf("L'évènement ne peut se terminer ce mois là, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+								printf("L'événement ne peut se terminer ce mois là, un événement étant déjà en train de se dérouler à ce moment là.\n");
 								res = 0;						
 			}
 		}else if(((temp->dateDebut->tm_year+1900) < anneeDeb && anneeDeb < (temp->dateFin->tm_year+1900))
@@ -76,7 +76,7 @@ int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char h
 					||((temp->dateDebut->tm_year+1900)==anneeDeb && anneeDeb < (temp->dateFin->tm_year+1900) && (temp->dateDebut->tm_mon+1)==moisDeb && temp->dateDebut->tm_mday <= jourDeb)
 					||((temp->dateDebut->tm_year+1900)< anneeDeb && anneeDeb == (temp->dateFin->tm_year+1900) && (temp->dateFin->tm_mon+1) > moisDeb)
 					||((temp->dateDebut->tm_year+1900)< anneeDeb && anneeDeb == (temp->dateFin->tm_year+1900) && (temp->dateFin->tm_mon+1)==moisDeb && temp->dateFin->tm_mday > jourDeb)){
-				printf("L'évènement ne peut commencer cette année là, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+				printf("L'événement ne peut commencer cette année là, un événement étant déjà en train de se dérouler à ce moment là.\n");
 				res = 0;
 		}else if(((temp->dateDebut->tm_year+1900) > anneeDeb && anneeFin > (temp->dateDebut->tm_year+1900))
 					||((temp->dateDebut->tm_year+1900)==anneeDeb && (temp->dateDebut->tm_mon+1) > moisDeb && anneeFin > (temp->dateDebut->tm_year+1900))
@@ -84,7 +84,7 @@ int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char h
 					||((temp->dateDebut->tm_year+1900)> anneeDeb && anneeFin == (temp->dateDebut->tm_year+1900) && (temp->dateDebut->tm_mon+1) < moisFin)
 					||((temp->dateDebut->tm_year+1900)> anneeDeb && anneeFin == (temp->dateDebut->tm_year+1900) && (temp->dateDebut->tm_mon+1)==moisFin && temp->dateDebut->tm_mday < jourFin)
 					||((temp->dateDebut->tm_year+1900)==anneeDeb && (temp->dateDebut->tm_mon+1)==moisDeb && temp->dateDebut->tm_mday > jourDeb && anneeFin == (temp->dateDebut->tm_year+1900) && (temp->dateDebut->tm_mon+1)==moisFin && temp->dateDebut->tm_mday < jourFin) ){
-				printf("L'évènement ne peut se terminer cette année là, un évènement étant déjà en train de se dérouler à ce moment là.\n");
+				printf("L'événement ne peut se terminer cette année là, un événement étant déjà en train de se dérouler à ce moment là.\n");
 				res = 0;	
 		}	
 		temp = temp->suivant;

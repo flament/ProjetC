@@ -20,7 +20,7 @@ void ajouterTheme(){
 
 	while((nom[0]<= 96 || nom[0] >= 123) && (nom[0]<= 64 || nom[0] >= 91)){
 		printf("Nom invalide, le nom d'un thème doit commencer par une lettre!\n");
-		printf("Veuillez resaisir un nom correcte:");
+		printf("Veuillez resaisir un nom correct:");
 		fgets(nomTemp, sizeof(nomTemp), stdin);	
 		if(strcmp(nomTemp,"\n"))
 			nom = strtok(nomTemp,"\n");

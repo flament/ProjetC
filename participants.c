@@ -127,7 +127,7 @@ void modifierParticipant(char email[100]){
 
 	if(p != NULL){
 		while(!exit){
-			printf("Que voulez-vous modifier ?\n1) le nom\t2)le prénom\t3)l'email\t 4)Quiter\n");
+			printf("Que voulez-vous modifier ?\n1) le nom\t2)le prénom\t3)l'email\t 4)Quitter\n");
 			scanf("%1d",&modifier);
 			getchar();
 

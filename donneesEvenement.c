@@ -7,22 +7,22 @@ char *entreeNom(){
 	char *nom = (char *)malloc(101*sizeof(char));
 	char nomTemp[101];
 	
-	printf("Nom de l'évènement : ");	
+	printf("Nom de l'événement : ");	
 	fgets(nomTemp, sizeof(nomTemp), stdin);
 	/*Si l'utilisateur ne saisit pas de nom (tape sur Entrée), nom = Nouvel évènement par défaut*/	
 	if(strcmp(nomTemp,"\n"))
 		strcpy(nom ,strtok(nomTemp,"\n"));
 	else
-		strcpy(nom , "Nouvel évènement ");
+		strcpy(nom , "Nouvel événement ");
 
 	while(!stringValide(nom)){
-		printf("Nom de l'évènement : ");
+		printf("Nom de l'événement : ");
 		fgets(nomTemp, sizeof(nomTemp), stdin);
 		
 		if(strcmp(nomTemp,"\n"))
 			strcpy(nom ,strtok(nomTemp,"\n"));
 		else
-			strcpy(nom , "Nouvel évènement ");
+			strcpy(nom , "Nouvel événement ");
 	}
 
 	return nom;
@@ -32,7 +32,7 @@ char *entreeDescription(){
 	char *desc = (char *)malloc(201*sizeof(char));
 	char descTemp[201];
 
-	printf("Description de l'évènement : ");
+	printf("Description de l'événement : ");
 	fgets(descTemp, sizeof(descTemp), stdin);
 	
 	if(strcmp(descTemp,"\n"))
@@ -41,7 +41,7 @@ char *entreeDescription(){
 		strcpy(desc , "Inconnue");
 
 	while(!stringValide(desc)){
-		printf("Description de l'évènement : ");
+		printf("Description de l'événement : ");
 		fgets(descTemp, sizeof(descTemp), stdin);
 		
 		if(strcmp(descTemp,"\n"))
@@ -57,7 +57,7 @@ char *entreeLieu(){
 	char *nomLieu = (char *)malloc(101*sizeof(char));
 	char lieuTemp[101];
 	
-	printf("Lieu de l'évènement :");
+	printf("Lieu de l'événement :");
 	fgets(lieuTemp, sizeof(lieuTemp), stdin);
 	
 	if(strcmp(lieuTemp,"\n"))
@@ -66,7 +66,7 @@ char *entreeLieu(){
 		strcpy(nomLieu,"Inconnu");
 
 	while(!stringValide(nomLieu)){
-		printf("Lieu de l'évènement : ");
+		printf("Lieu de l'événement : ");
 		fgets(lieuTemp, sizeof(lieuTemp), stdin);
 		
 		if(strcmp(lieuTemp,"\n"))
@@ -82,7 +82,7 @@ char *entreeDateDebut(){
 	char *dateDebut = (char *)malloc(50*sizeof(char));	
 	char dateDebTemp[50];
 
-	printf("Date de début de l'évènement (format dd/mm/yyyy): ");
+	printf("Date de début de l'événement (format dd/mm/yyyy): ");
 	fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
 
 	if(strcmp(dateDebTemp,"\n"))
@@ -91,7 +91,7 @@ char *entreeDateDebut(){
 		strcpy(dateDebut , "Inconnue");
 
 	while(!formatDateValide(dateDebut)){
-		printf("Date de début de l'évènement (format dd/mm/yyyy): ");
+		printf("Date de début de l'événement (format dd/mm/yyyy): ");
 		fgets(dateDebTemp, sizeof(dateDebTemp), stdin);
 		
 		if(strcmp(dateDebTemp,"\n"))
@@ -107,7 +107,7 @@ char *entreeHeureDebut(){
 	char *heureDebut = (char *)malloc(50*sizeof(char));
 	char heureDebTemp[50];
 
-	printf("Heure de début de l'évènement (format HH:MM): ");
+	printf("Heure de début de l'événement (format HH:MM): ");
 	fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
 
 	if(strcmp(heureDebTemp,"\n"))
@@ -116,7 +116,7 @@ char *entreeHeureDebut(){
 		strcpy(heureDebut , "Inconnue");
 	
 	while(!formatHeureValide(heureDebut)){
-		printf("Heure de début de l'évènement (format HH:MM): ");
+		printf("Heure de début de l'événement (format HH:MM): ");
 		fgets(heureDebTemp, sizeof(heureDebTemp), stdin);
 
 		if(strcmp(heureDebTemp,"\n"))
@@ -132,7 +132,7 @@ char *entreeDateFin(){
 	char *dateFin = (char *)malloc(50*sizeof(char));
 	char dateFinTemp[50];
 
-	printf("Date de fin de l'évènement (format dd/mm/yyyy): ");
+	printf("Date de fin de l'événement (format dd/mm/yyyy): ");
 	fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
 
 	if(strcmp(dateFinTemp,"\n"))
@@ -141,7 +141,7 @@ char *entreeDateFin(){
 		strcpy(dateFin , "Inconnue");
 	
 	while(!formatDateValide(dateFin)){
-		printf("Date de fin de l'évènement (format dd/mm/yyyy): ");
+		printf("Date de fin de l'événement (format dd/mm/yyyy): ");
 		fgets(dateFinTemp, sizeof(dateFinTemp), stdin);
 		
 		if(strcmp(dateFinTemp,"\n"))
@@ -157,7 +157,7 @@ char *entreeHeureFin(){
 	char *heureFin = (char *)malloc(50*sizeof(char));
 	char heureFinTemp[50];
 
-	printf("Heure de fin de l'évènement (format HH:MM): ");
+	printf("Heure de fin de l'événement (format HH:MM): ");
 	fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
 
 	if(strcmp(heureFinTemp,"\n"))
@@ -166,7 +166,7 @@ char *entreeHeureFin(){
 		strcpy(heureFin , "Inconnue");
 	
 	while(!formatHeureValide(heureFin)){
-		printf("Heure de fin de l'évènement (format HH:MM): ");
+		printf("Heure de fin de l'événement (format HH:MM): ");
 		fgets(heureFinTemp, sizeof(heureFinTemp), stdin);
 
 		if(strcmp(heureFinTemp,"\n"))

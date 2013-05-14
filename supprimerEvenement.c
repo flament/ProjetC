@@ -31,7 +31,7 @@ EVENEMENT *rechercherEvenement(char nomEvenement[100],char dateDebutEvenement[10
 	}
 
 	if(reussi ==0)
-		printf("Aucun évènement ne correspond à ce nom et/ou cette date\n");
+		printf("Aucun événement ne correspond à ce nom et/ou cette date\n");
 	
 	return res;
 }
@@ -58,7 +58,7 @@ void supprimerEvenement(char nomEvenement[100],char dateDebutEvenement[10],char 
 			libererPersonne(e->participants);*/
 		free(e);
 	}else
-		printf("Evènement inexistant!\n");	
+		printf("Evénement inexistant!\n");	
 }
 
 char *afficherEvenements(){

@@ -54,9 +54,10 @@ void menuGestion(char theme[100]){
 		printf("\t8)Quitter\n");
 		printf("Votre choix :\n");
 		
-		scanf("%1d",&choix);
+		fflush(stdin);
+		scanf("%d",&choix);
 		getchar();
-
+		
 		switch(choix){
 			case 1:
 				ajouterEvenement();
@@ -67,6 +68,7 @@ void menuGestion(char theme[100]){
 				else{
 					printf("\n%s\n",afficherEvenements());
 					printf("Saisissez le nom de l'évènement à modifier:");
+					fflush(stdin);
 					fgets(nomTemp, sizeof(nomTemp), stdin);				
 					if(strcmp(nomTemp,"\n"))
 						nom = strtok(nomTemp,"\n");
@@ -74,6 +76,7 @@ void menuGestion(char theme[100]){
 						nom = "";
 				
 					printf("Saisissez la date de début de l'évènement à modifier:");
+					fflush(stdin);
 					fgets(dateTemp, sizeof(dateTemp), stdin);
 					if(strcmp(dateTemp,"\n"))
 						date = strtok(dateTemp,"\n");
@@ -81,6 +84,7 @@ void menuGestion(char theme[100]){
 						date = "";
 
 					printf("Saisissez l'heure de début de l'évènement à modifier:");
+					fflush(stdin);
 					fgets(heureTemp, sizeof(heureTemp), stdin);
 					if(strcmp(heureTemp,"\n"))
 						heure = strtok(heureTemp,"\n");
@@ -97,6 +101,7 @@ void menuGestion(char theme[100]){
 					printf("\n%s\n",afficherEvenements());
 					
 					printf("Saisissez le nom de l'évènement à supprimer:");
+					fflush(stdin);
 					fgets(nomTemp, sizeof(nomTemp), stdin);
 					if(strcmp(nomTemp,"\n"))
 						nom = strtok(nomTemp,"\n");
@@ -104,6 +109,7 @@ void menuGestion(char theme[100]){
 						nom = "";
 				
 					printf("Saisissez la date de début de l'évènement à supprimer:");
+					fflush(stdin);
 					fgets(dateTemp, sizeof(dateTemp), stdin);
 					if(strcmp(dateTemp,"\n"))
 						date = strtok(dateTemp,"\n");
@@ -111,6 +117,7 @@ void menuGestion(char theme[100]){
 						date = "";
 
 					printf("Saisissez l'heure de début de l'évènement à supprimer:");
+					fflush(stdin);
 					fgets(heureTemp, sizeof(heureTemp), stdin);
 					if(strcmp(heureTemp,"\n"))
 						heure = strtok(heureTemp,"\n");
@@ -126,6 +133,7 @@ void menuGestion(char theme[100]){
 				else{
 					printf("\n%s\n",afficherEvenements());
 					printf("Saisissez le nom de l'évènement à consulter:");
+					fflush(stdin);
 					fgets(nomTemp, sizeof(nomTemp), stdin);				
 					if(strcmp(nomTemp,"\n"))
 						nom = strtok(nomTemp,"\n");
@@ -133,6 +141,7 @@ void menuGestion(char theme[100]){
 						nom = "";
 				
 					printf("Saisissez la date de début de l'évènement à consulter:");
+					fflush(stdin);
 					fgets(dateTemp, sizeof(dateTemp), stdin);
 					if(strcmp(dateTemp,"\n"))
 						date = strtok(dateTemp,"\n");
@@ -140,6 +149,7 @@ void menuGestion(char theme[100]){
 						date = "";
 
 					printf("Saisissez l'heure de début de l'évènement à consulter:");
+					fflush(stdin);
 					fgets(heureTemp, sizeof(heureTemp), stdin);
 					if(strcmp(heureTemp,"\n"))
 						heure = strtok(heureTemp,"\n");
@@ -162,9 +172,19 @@ void menuGestion(char theme[100]){
 
 				break;
 			case 5:
+				printf("De quelle date souhaitez vous vérifier les créneaux libres?");
+				fflush(stdin);
+				fgets(dateTemp, sizeof(dateTemp), stdin);
+				if(strcmp(dateTemp,"\n"))
+						date = strtok(dateTemp,"\n");
+				else
+						date = "";
+
+				libre(date);
 				break;
 			case 6:
 				printf("Saisissez le nom du fichier à sauvegarder:");
+				fflush(stdin);
 				fgets(nomTemp, sizeof(nomTemp), stdin);
 				if(strcmp(nomTemp,"\n"))
 					nom = strtok(nomTemp,"\n");
@@ -176,7 +196,8 @@ void menuGestion(char theme[100]){
 
 				break;
 			case 7:
-				printf("Saisissez le nom du fichier à charger:");
+				printf("Saisissez le nom du fichier à charger:");	
+				fflush(stdin);
 				fgets(nomTemp, sizeof(nomTemp), stdin);
 				if(strcmp(nomTemp,"\n"))
 					nom = strtok(nomTemp,"\n");
@@ -228,6 +249,7 @@ int main(int argc, char** argv) {
 				else{
 					printf("\n%s\n",afficherThemes());
 					printf("Saisissez le nom du thème à modifier:");
+					fflush(stdin);
 					fgets(nomTemp, sizeof(nomTemp), stdin);
 					if(strcmp(nomTemp,"\n"))
 						nom = strtok(nomTemp,"\n");
@@ -242,6 +264,7 @@ int main(int argc, char** argv) {
 				else{
 					printf("\n%s\n",afficherThemes());
 					printf("Saisissez le nom du thème à supprimer:");
+					fflush(stdin);
 					fgets(nomTemp, sizeof(nomTemp), stdin);
 					if(strcmp(nomTemp,"\n"))
 						nom = strtok(nomTemp,"\n");
@@ -256,6 +279,7 @@ int main(int argc, char** argv) {
 				else{
 					printf("\n%s\n",afficherThemes());
 					printf("\nSaisissez le nom du thème que vous voulez gérer :");
+					fflush(stdin);
 					fgets(nomTemp, sizeof(nomTemp), stdin);
 					
 					if(strcmp(nomTemp,"\n"))
@@ -273,6 +297,7 @@ int main(int argc, char** argv) {
 				break;
 			case 5:
 				printf("Saisissez le nom du fichier à sauvegarder:");
+				fflush(stdin);
 				fgets(nomTemp, sizeof(nomTemp), stdin);
 				if(strcmp(nomTemp,"\n"))
 					nom = strtok(nomTemp,"\n");
@@ -284,13 +309,14 @@ int main(int argc, char** argv) {
 				break;
 			case 6:
 				printf("Saisissez le nom du fichier à charger:");
+				fflush(stdin);
 				fgets(nomTemp, sizeof(nomTemp), stdin);
 				if(strcmp(nomTemp,"\n"))
 					nom = strtok(nomTemp,"\n");
 				else
 					nom = "";		
 				
-					lectureFichierThemes(nom);
+					confirmation(nom);
 				break;
 			case 7:
 				arret = 0;
@@ -300,78 +326,6 @@ int main(int argc, char** argv) {
 		}
 	}
 		
-	
-	/*char buffer[256], buff2[256];*/
-	
-	/*charger("Calendrier.csv");*/
-	/*char d[10] = "18/04/2013";
-	char d1[10] = "18/04/2013";
-	char h[5] = "15:00";
-	char h1[5] = "16:00";
-	
-	ajouterEvenement();
-	
-	int test = emplacementDispo(d,d1,h,h1);
-	printf("%d\n",test);	*/
-
-	/*ajouterEvenement();
-	ajouterEvenement();*/
-	
-	/*printf("\n\n---------------------------------------------------\n");*/
-	/*modifier("evt1","18/04/2013");*/	
-
-	/*EVENEMENT *temp = tete;
-	while(temp != NULL){
-		printf("\n%s\n",temp->nom);
-		temp= temp->suivant;
-	}
-	PERSONNE *tem = teteListePers;
-	while(tem != NULL){
-		printf("\n%s\n",tem->nom);
-		tem = tem->suivant;
-	}*/
-	
-	
-	/*printf("\n\n%s\n",afficherParticipants());*/
-	/*ajouterEvenement();
-	ajouterEvenement();*/
-	/*EVENEMENT *ev = (EVENEMENT *)malloc(sizeof(EVENEMENT));
-	ev = rechercher("test3","18/04/2013");
-	printf("nom Evt: %s\n",ev->nom);
-	printf("nom Lieu: %s\n",ev->nomLieu);
-	strftime(buffer, sizeof(buffer), "%d %B %Y", ev->dateDebut);
-	printf("%s\n",buffer);
-	supprimer("test3","18/04/2013");*/
-	/*printf("nom Evt: %s\n",tete->nom);	
-	printf("nom Lieu: %s\n",tete->nomLieu);
-	printf("Desc Evt: %s\n",tete->description);
-	strftime(buffer, sizeof(buffer), "%x %H:%M", tete->dateDebut);
-	strftime(buff2, sizeof(buff2), "%x %H:%M", tete->dateFin);
-	printf("%s\n",buffer);
-	printf("%s\n",buff2);*/
-	/*printf("\n\n\nnom Evt: %s\n",tete->nom);
-	printf("nom1 : %s\n",tete->participants->nom);
-	printf("prenom: %s\n",tete->participants->prenom);
-	printf(",,,,,,,,,,,,,,,,,,,nom2 : %s\n",tete->participants->suivant->nom);
-	printf("prenom: %s\n",tete->participants->suivant->prenom);*
-	
-
-	printf("\n\nnom Evt: %s\n",(tete->suivant)->nom);	
-	printf("nom Lieu: %s\n",(tete->suivant)->nomLieu);
-	printf("Desc Evt: %s\n",(tete->suivant)->description);
-	printf("nom1 : %s\n",(tete->suivant)->participants->nom);
-	printf("prenom: %s\n",(tete->suivant)->participants->prenom);
-	printf(",,,,,,,,,,,,,,,,,,,nom2 : %s\n",(tete->suivant)->participants->suivant->nom);
-	printf("prenom: %s\n",(tete->suivant)->participants->suivant->prenom);*/
-	/*strftime(buffer, sizeof(buffer), "%x %H:%M", (tete->suivant)->dateDebut);
-	strftime(buff2, sizeof(buff2), "%x %H:%M", (tete->suivant)->dateFin);
-	printf("%s\n",buffer);
-	printf("%s\n",buff2);*/
-
-	/*ecritureCSV();
-	enregistrerParticipants();
-	enregistrerFormatTxt();
-*/
 	if(tete != NULL)
 		libererEvenement(tete);
 

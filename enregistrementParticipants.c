@@ -17,11 +17,11 @@ void enregistrerParticipants(char *fichier){
 			fprintf(f,"Nom du participant : %s\n",temp->nom);
 			fprintf(f,"Prénom du participant : %s\n",temp->prenom);
 			fprintf(f,"Email du participant : %s\n",temp->email);
-			/*fprintf(f,"Fonction du participant : %s\n",temp->fonction);*/
 			
 			fputs("------------------------------------------------------------------------------------\n",f);			
 			temp = temp->suivant;
 		}
+	printf("Les données concernant les participants ont bien été sauvegardées\n");
 	fclose(f);
 	}
 	else

@@ -48,7 +48,8 @@ void ajouterEvenement(){
 	
 	while(!exit){
 		printf("Voulez-vous ajouter un participant ?\n1) oui\t2) non\n");
-		scanf("%1d",&participant);
+		fflush(stdin);
+		scanf("%d",&participant);
 		getchar();
 
 		switch(participant){

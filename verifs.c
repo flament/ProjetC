@@ -71,7 +71,10 @@ int formatHeureValide(char h[50]){
 
 		if(taille != 5){
 			printf("L'heure doit contenir 5 caractères (format hh:mm)!\n");
-			res = 0;		 
+			res = 0;
+		}else if((heure[0] < 48 || heure[0] > 57) ||(heure[1] < 48 || heure[1] > 57)||(minute[0] < 48 || minute[0] > 57)||(minute[1] < 48 || minute[1] > 57)){
+			printf("Les heures et minutes doivent être représentées des nombres!\n");
+			res = 0;	 
 		}else if(atoi(heure) < 0 || atoi(heure) >= 24){
 			printf("Heure invalide!\n");
 			res = 0;

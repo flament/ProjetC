@@ -43,6 +43,7 @@ void enregistrerFormatTxt(char *fichier){
 			fputs("------------------------------------------------------------------------------------\n",f);			
 			temp = temp->suivant;
 		}
+	printf("Les données concernant les événements ont bien été sauvegardées\n");
 	fclose(f);
 	}
 	else

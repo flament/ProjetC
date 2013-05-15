@@ -15,8 +15,8 @@ PROG = agenda
 all : $(PROG)
 
 #edition de liens et production de l'executable
-$(PROG) :  verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o donneesParticipant.o participants.o donneesEvenement.o ajouterEvenement.o modifierEvenement.o supprimerEvenement.o theme.o main.o
-	$(CC) $(CFLAGS) verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o donneesParticipant.o participants.o donneesEvenement.o ajouterEvenement.o modifierEvenement.o  supprimerEvenement.o theme.o main.o -o $(PROG) 
+$(PROG) :  verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o donneesParticipant.o participants.o donneesEvenement.o ajouterEvenement.o modifierEvenement.o supprimerEvenement.o libre.o theme.o main.o
+	$(CC) $(CFLAGS) verifs.o charger.o enregistrementFormatCSV.o enregistrementEvenement.o enregistrementParticipants.o conversion.o emplacementDispo.o donneesParticipant.o participants.o donneesEvenement.o ajouterEvenement.o modifierEvenement.o  supprimerEvenement.o libre.o theme.o main.o -o $(PROG) 
 
 	
 # compilation du fichier verifs
@@ -70,6 +70,10 @@ modifierEvenement.o : modifierEvenement.c Agenda.h
 # compilation du fichier supprimerEvenement
 supprimerEvenement.o : supprimerEvenement.c Agenda.h
 	$(CC) $(CFLAGS) -c supprimerEvenement.c  
+
+# compilation du fichier libre
+libre.o : libre.c Agenda.h
+	$(CC) $(CFLAGS) -c libre.c  
 
 # compilation du fichier theme
 theme.o : theme.c Agenda.h

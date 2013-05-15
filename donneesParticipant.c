@@ -8,6 +8,7 @@ char *entreeNomP(){
 	char nomTemp[101];
 
 	printf("Nom du participant:");
+	fflush(stdin);
 	fgets(nomTemp, sizeof(nomTemp), stdin);
 
 	if(strcmp(nomTemp,"\n"))
@@ -23,6 +24,7 @@ char *entreePrenomP(){
 	char prenomTemp[101];
 
 	printf("Prénom du participant:");
+	fflush(stdin);
 	fgets(prenomTemp, sizeof(prenomTemp), stdin);
 
 	if(strcmp(prenomTemp,"\n"))
@@ -38,6 +40,7 @@ char *entreeEmailP(){
 	char emailTemp[101];
 
 	printf("Email du participant:");
+	fflush(stdin);
 	fgets(emailTemp, sizeof(emailTemp), stdin);
 
 	if(strcmp(emailTemp,"\n"))
@@ -47,6 +50,7 @@ char *entreeEmailP(){
 	
 	while(!emailValide(email)){
 		printf("Email du participant: ");
+		fflush(stdin);
 		fgets(emailTemp, sizeof(emailTemp), stdin);
 
 		if(strcmp(emailTemp,"\n"))

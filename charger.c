@@ -48,6 +48,7 @@ void lectureFichierParticipants(char *nomFichier){
 			nb1 = 0;
 			carP = fgetc(f1); 
 		}
+		printf("Chargement des participants réussi\n");
 		fclose(f1);
 	}else
 		printf("Fichier contenant les participants introuvable\n");
@@ -143,21 +144,47 @@ void lectureFichierEvenement(char *nomFichier){
 			exit = 1;
 			car = fgetc(f1); 
 		}
+	
 		fclose(f1);
+		printf("Chargement des événements réussi\n");
 		/*free(p); free(temp);*/
 	}else
 		printf("Fichier .txt contenant les événements introuvable \n");
 }
 
 void charger(char *nomFichier){
-	char *temp = (char*)malloc((strlen(nomFichier)+1)*sizeof(char));
-	char *part = (char*)malloc((strlen(nomFichier)+14)*sizeof(char));
-	strcpy(temp,nomFichier);
-	part = strtok(nomFichier,".");
-	strcat(part,"_Participants.txt");
+	char *temp,*part;
+	int choix = 0;
+	int chargement = 1;
 
-	lectureFichierParticipants(part);
-	lectureFichierEvenement(temp);
+	if(tete != NULL){
+		printf("Attention, en chargeant les données d'un fichier vous allez perdre les données actuelles! Voulez vous continuer? 1)Oui 2)Non\n");
+		scanf("%1d",&choix);
+		getchar();
+
+		switch(choix){
+			case 1:
+				break;
+			case 2:
+				chargement = 0;
+				break;	
+			default :
+				printf("Ceci n'est pas un choix valide, veuillez entrer soit 1 soit 2\n");
+		}
+	}
+
+	if(chargement){
+		tete = NULL;
+		teteListePers = NULL;
+		temp = (char*)malloc((strlen(nomFichier)+1)*sizeof(char));
+		part = (char*)malloc((strlen(nomFichier)+14)*sizeof(char));
+		strcpy(temp,nomFichier);
+		part = strtok(nomFichier,".");
+		strcat(part,"_Participants.txt");
+
+		lectureFichierParticipants(part);
+		lectureFichierEvenement(temp);
+	}
 }
 
 

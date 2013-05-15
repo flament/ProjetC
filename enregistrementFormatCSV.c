@@ -28,6 +28,7 @@ void ecritureCSV(char *fichier){
 			ecrireUnEvenement(calendrier,temp);
 			temp = temp->suivant;
 		}
+	printf("La sauvegarde au format csv s'est bien déroulée \n");
 	fclose(calendrier);
 	}
 	else

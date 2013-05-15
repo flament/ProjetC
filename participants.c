@@ -118,7 +118,7 @@ PERSONNE * supprimerParticipantEvt(char email[100]){
 }
 
 
-void modifierParticipant(char email[100]){
+PERSONNE* modifierParticipant(char email[100]){
 	PERSONNE *p = rechercherParticipant(email);
 	PERSONNE *test = testPersonneDejaExistente(email);
 
@@ -128,7 +128,7 @@ void modifierParticipant(char email[100]){
 	if(p != NULL){
 		while(!exit){
 			printf("Que voulez-vous modifier ?\n1) le nom\t2)le prénom\t3)l'email\t 4)Quitter\n");
-			scanf("%1d",&modifier);
+			scanf("%d",&modifier);
 			getchar();
 
 			switch(modifier){
@@ -162,6 +162,8 @@ void modifierParticipant(char email[100]){
 		}
 	}else
 		printf("Participant inexistant");
+
+	return p;
 }
 
 /*Supprime un participant de la liste des inscrits et de la liste des participants des évènements auxquels il était inscrit*/

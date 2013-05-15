@@ -24,7 +24,7 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 	while(!exit){
 		exit2 = 0;
 		printf("Que voulez-vous modifier ?\n1) le nom\t2)le lieu\t3)la date de début\t4)l'heure de début\t5)la date de fin\t6)l'heure de fin\t7)la description\t8)les personnes participantes\n9)Quitter\n");
-		scanf("%1d",&modifier);
+		scanf("%d",&modifier);
 		getchar();
 		
 		switch(modifier){
@@ -85,8 +85,8 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 				break;
 			case 8 :
 				while(!exit2){
-					printf("Voulez-vous inscrire ou supprimer un participant ?\n1)inscrire\t2)supprimer\t3)Quitter\n");
-					scanf("%1d",&participant);
+					printf("Voulez-vous inscrire, modifier ou supprimer un participant ?\n1)inscrire\t2)modifier 3)supprimer\t4)Quitter\n");
+					scanf("%d",&participant);
 					getchar();
 				
 					switch(participant){
@@ -94,7 +94,20 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 							p = ajouterParticipant();
 							e->participants = p;	
 							break;
-						case 2 :
+						case 2:
+							if(e->participants == NULL){
+								printf("Il n'y a aucun participant\n");
+							}else{
+								printf("\n%s\n",afficherParticipants());
+								printf("\nQuel participant souhaitez-vous modifier? (rentrer son email)\n");
+								scanf("%100s",supprEmail);
+								getchar();
+								p = modifierParticipant(supprEmail);
+								e->participants = p;
+							}
+							/*free(afficherParticipants());*/
+							break;
+						case 3 :
 							/* faire dérouler les personnes avec un numéro devant et supprimer la personne ainsi selectionnée*/
 							if(e->participants == NULL){
 								printf("Il n'y a aucun participant\n");
@@ -108,7 +121,7 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 							}
 							/*free(afficherParticipants());*/
 							break;
-						case 3 :
+						case 4 :
 							exit2 = 1;
 							break;
 						default :

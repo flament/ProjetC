@@ -5,11 +5,12 @@
 
 extern EVENEMENT *tete;
 
+/*permet de modifier des données sur les événements existants*/
 void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char heureDeb[5]){
 	EVENEMENT *e = rechercherEvenement(nomEvenement,dateDebutEvenement,heureDeb);
 	PERSONNE * p = (PERSONNE *)malloc(sizeof(PERSONNE));
 	p = NULL;
-	int modifier = 0,participant = 0, exit = 0, exit2;
+	int modifier,participant, exit = 0, exit2;
 	char *modifDateDeb,*modifDateFin,*modifHeureDeb,*modifHeureFin;
 	char heureD[256],heureF[256],dateD[256],dateF[256],supprEmail[101];
 
@@ -23,6 +24,7 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 
 	while(!exit){
 		exit2 = 0;
+		modifier = 0;
 		printf("Que voulez-vous modifier ?\n1) le nom\t2)le lieu\t3)la date de début\t4)l'heure de début\t5)la date de fin\t6)l'heure de fin\t7)la description\t8)les personnes participantes\n9)Quitter\n");
 		scanf("%d",&modifier);
 		getchar();
@@ -85,6 +87,7 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 				break;
 			case 8 :
 				while(!exit2){
+					participant = 0;
 					printf("Voulez-vous inscrire, modifier ou supprimer un participant ?\n1)inscrire\t2)modifier 3)supprimer\t4)Quitter\n");
 					scanf("%d",&participant);
 					getchar();
@@ -105,7 +108,6 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 								p = modifierParticipant(supprEmail);
 								e->participants = p;
 							}
-							/*free(afficherParticipants());*/
 							break;
 						case 3 :
 							/* faire dérouler les personnes avec un numéro devant et supprimer la personne ainsi selectionnée*/
@@ -119,7 +121,6 @@ void modifierEvenement(char nomEvenement[100],char dateDebutEvenement[10],char h
 								p = supprimerParticipantEvt(supprEmail);
 								e->participants = p;
 							}
-							/*free(afficherParticipants());*/
 							break;
 						case 4 :
 							exit2 = 1;

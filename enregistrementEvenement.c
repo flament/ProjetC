@@ -5,8 +5,8 @@
 
 extern EVENEMENT *tete;
 
+/*enregistre les données concernant les événements dans un fichier texte*/
 void enregistrerFormatTxt(char *fichier){
-	/*char *fichier = "evt.txt";*/
 	EVENEMENT *temp = tete;
 	PERSONNE *pt;
 	FILE *f;

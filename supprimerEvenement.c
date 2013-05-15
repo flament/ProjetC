@@ -5,6 +5,7 @@
 
 extern EVENEMENT *tete;
 
+/*recherche un événement*/
 EVENEMENT *rechercherEvenement(char nomEvenement[100],char dateDebutEvenement[10], char heureDeb[5]){
 	EVENEMENT *temp = tete;
 	EVENEMENT *res = (EVENEMENT *)malloc(sizeof(EVENEMENT));
@@ -36,6 +37,7 @@ EVENEMENT *rechercherEvenement(char nomEvenement[100],char dateDebutEvenement[10
 	return res;
 }
 
+/*supprime un événement*/
 void supprimerEvenement(char nomEvenement[100],char dateDebutEvenement[10],char heureDeb[5]){ 
 	EVENEMENT *e = rechercherEvenement(nomEvenement,dateDebutEvenement,heureDeb); 
 	EVENEMENT *temp = tete;
@@ -54,13 +56,13 @@ void supprimerEvenement(char nomEvenement[100],char dateDebutEvenement[10],char 
 
 		free(e->dateDebut);
 		free(e->dateFin);
-		/*if(e->participants != NULL)
-			libererPersonne(e->participants);*/
 		free(e);
 	}else
 		printf("Evénement inexistant!\n");	
 }
 
+
+/*affiche les événements créés*/
 char *afficherEvenements(){
 	char *res = (char*)malloc(210*sizeof(char));
 	char nb[1],nomTemp[100],dateTemp[100];

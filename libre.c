@@ -5,28 +5,21 @@
 
 extern EVENEMENT *tete;
 
+/*indique les créneaux libres d'une journée*/
 void libre(char date[10]){
 	EVENEMENT *temp;
+	EVENEMENT *e= (EVENEMENT *)malloc(sizeof(EVENEMENT));
 	temp = rechercherParJour(date);
-	int *tableDebutHeure, *tableDebutMinute, *tableFinHeure, *tableFinMinute;
-	int i,longueurTable;
+	e = temp;
+	int *tableDebutHeure = (int *)malloc(100*sizeof(int));
+	int *tableDebutMinute = (int *)malloc(100*sizeof(int));
+	int *tableFinHeure = (int *)malloc(100*sizeof(int));
+	int *tableFinMinute = (int *)malloc(100*sizeof(int));
+	int i, longueurTable,init;
 	
 	if(temp != NULL){
-		/*Longueur des tableaux*/
 		i = 0;
-		temp = rechercherParJour(date);
-		while(temp != NULL){
-			i++;
-			temp = temp->suivant;
-		}
-		longueurTable = i-1;
-
-		tableDebutHeure = (int *)malloc(longueurTable*sizeof(int));
-		tableDebutMinute = (int *)malloc(longueurTable*sizeof(int));
-		tableFinHeure = (int *)malloc(longueurTable*sizeof(int));
-		tableFinMinute = (int *)malloc(longueurTable*sizeof(int));
-	
-		/*Remplissage des tblx dhoraires en h et m*/
+		/*Remplissage des tableaux d'horaires en heures et minutes*/
 		while(temp != NULL){
 			tableDebutHeure[i] = temp->dateDebut->tm_hour;
 			tableDebutMinute[i] = temp->dateDebut->tm_min;
@@ -35,11 +28,18 @@ void libre(char date[10]){
 			i++;
 			temp = temp->suivant;
 		}
+	
+		/*Longueur des tableaux*/
+		i = 0;
+		temp = e;
+		while(temp != NULL){
+			i++;
+			temp = temp->suivant;
+		}
 		
+		 longueurTable = i-1;
 		
-		
-		/*Tri des tableaux*/
-		
+		/*Tri des tableaux*/	
 		triTableau(tableDebutHeure,longueurTable);
 		triTableau(tableDebutMinute,longueurTable);
 		triTableau(tableFinHeure,longueurTable);
@@ -47,11 +47,11 @@ void libre(char date[10]){
 		
 		printf("\nles crénaux libres sont :\n");
 		/*réinitialisation de temp*/
-		temp = rechercherParJour(date);
+		temp = e;
 		i = 0;
-		int init = 0;
+	   init = 0;
 		
-		/*Affichage des crenaux libres*/
+		/*Affichage des créneaux libres*/
 		while(temp != NULL){
 			if((init == 0)){
 				if(tableDebutMinute[i] < 10){
@@ -91,54 +91,51 @@ void libre(char date[10]){
 	}
 }
 
+/*retourne les événements d'une journée*/
 EVENEMENT *rechercherParJour(char dateDebutEvenement[10]){
-	EVENEMENT *temp = tete;
-	EVENEMENT *res = (EVENEMENT *)malloc(sizeof(EVENEMENT));
+	EVENEMENT *tem = tete;
+	EVENEMENT *res1 = (EVENEMENT *)malloc(sizeof(EVENEMENT));
+	EVENEMENT *res;
+	res1 = NULL;
 	res = NULL;
-	int indicTete = 0,i = 1;
-	char date[256], dateTemp[256]; 
-	strftime(date, sizeof(date), "%d/%m/%Y", tete->dateDebut);
+	int indicTete = 0,i = 0;
+	char dateTemp[256]; 
 	
 	
-	if(temp != NULL){
-		strftime(dateTemp, sizeof(dateTemp), "%d/%m/%Y", temp->dateDebut); 
-	}
+	if(tem != NULL)
+		strftime(dateTemp, sizeof(dateTemp), "%d/%m/%Y", tem->dateDebut);
 
-	if(!strcmp(date,dateDebutEvenement)){
-			res = tete;
-			indicTete = 1;
-	}
-		
-	while(temp != NULL ){
-		
-		if(strcmp(dateTemp,dateDebutEvenement)){
+	while(tem != NULL){
+		if(!strcmp(dateTemp,dateDebutEvenement)){
 			if(indicTete == 0){
-				res = temp;
+				res = tem;
 				indicTete = 1;
 			}
 			else{
-				res->suivant = res; 
-				res = temp;
+				if(res1 != NULL)
+					res1->suivant = res1;
+				res1 = res;
+				res = tem;
 			}
-		}
-		
+		}	
 		i++; 
-		temp = temp->suivant;
-		
-		if(temp != NULL)
-			strftime(dateTemp, sizeof(dateTemp), "%d/%m/%Y", temp->dateDebut);		
+		tem = tem->suivant;
+
+		if(tem != NULL)
+			strftime(dateTemp, sizeof(dateTemp), "%d/%m/%Y", tem->dateDebut);		
 	}
 	
+	if(i == 1)
+		res1 = res;
 	if(indicTete == 0)
 		printf("Il n'y a aucun évènement ce jour là, tous les créneaux sont libres\n");
 	
-	return res;
+	return res1;
 }
 
 /*tri d'un tableau dans l'ordre croissant -> table[0] est le plus petit*/
 void triTableau(int *t,int n){ 
 	int j = 0,tmp = 0, enDesordre = 1;
-
 	while(enDesordre){
 		enDesordre = 0; 
 		for(j =0; j < n; j++){ 

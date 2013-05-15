@@ -5,6 +5,7 @@
 
 extern EVENEMENT *tete;
 
+/*enregistre les événements dans un fichier au format csv*/
 void ecrireUnEvenement(FILE* c,EVENEMENT *e){
 	/*FORMAT date jj/mm/aaaa ; heure hh:mm*/
 	char startDate[10] , endDate[10], startTime[10], endTime[10];

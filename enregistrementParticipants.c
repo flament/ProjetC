@@ -5,8 +5,8 @@
 
 extern PERSONNE *teteListePers;
 
+/*enregistre les données concernant les participants dans un fichier texte*/
 void enregistrerParticipants(char *fichier){
-	/*char *fichier = "participants.txt";*/
 	PERSONNE *temp = teteListePers;
 	FILE *f;
 	
@@ -28,6 +28,7 @@ void enregistrerParticipants(char *fichier){
 		printf("Impossible d'ouvrir le fichier\n");
 }
 
+/*appelle les fonctions d'enregistrement avec les bons noms de fichier*/
 void enregistrer(char *fichier, char nomTheme[100]){
 		char *csv = (char *)malloc((strlen(nomTheme)+strlen(fichier)+6)*sizeof(char)); 
 		strcpy(csv,fichier);

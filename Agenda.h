@@ -11,9 +11,6 @@
 #include <stdio.h>
 #include <string.h>
 
-enum Fonc {eleve,professeur};
-typedef enum Fonc Fonction;
-
 struct Theme{
     char nom[100];
 	 struct Theme *suivant;

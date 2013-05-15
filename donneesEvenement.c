@@ -3,6 +3,7 @@
 #include "Agenda.h"
 #include <string.h>
 
+/*retourne le nom de l'événement rentré par l'utilisateur*/
 char *entreeNom(){
 	char *nom = (char *)malloc(101*sizeof(char));
 	char nomTemp[101];
@@ -30,6 +31,7 @@ char *entreeNom(){
 	return nom;
 }
 
+/*retourne la description de l'événement rentrée par l'utilisateur*/
 char *entreeDescription(){
 	char *desc = (char *)malloc(201*sizeof(char));
 	char descTemp[201];
@@ -57,6 +59,7 @@ char *entreeDescription(){
 	return desc;
 }
 
+/*retourne le nom du lieu de l'événement rentré par l'utilisateur*/
 char *entreeLieu(){
 	char *nomLieu = (char *)malloc(101*sizeof(char));
 	char lieuTemp[101];
@@ -84,6 +87,7 @@ char *entreeLieu(){
 	return nomLieu;
 }
 
+/*retourne la date de début de l'événement rentrée par l'utilisateur*/
 char *entreeDateDebut(){
 	char *dateDebut = (char *)malloc(50*sizeof(char));	
 	char dateDebTemp[50];
@@ -111,6 +115,7 @@ char *entreeDateDebut(){
 	return dateDebut;
 }
 
+/*retourne l'horaire de début de l'événement rentré par l'utilisateur*/
 char *entreeHeureDebut(){
 	char *heureDebut = (char *)malloc(50*sizeof(char));
 	char heureDebTemp[50];
@@ -138,6 +143,7 @@ char *entreeHeureDebut(){
 	return heureDebut;
 }
 
+/*retourne la date de fin de l'événement rentrée par l'utilisateur*/
 char *entreeDateFin(){
 	char *dateFin = (char *)malloc(50*sizeof(char));
 	char dateFinTemp[50];
@@ -165,6 +171,7 @@ char *entreeDateFin(){
 	return dateFin;
 }
 
+/*retourne l'horaire de fin de l'événement rentré par l'utilisateur*/
 char *entreeHeureFin(){
 	char *heureFin = (char *)malloc(50*sizeof(char));
 	char heureFinTemp[50];

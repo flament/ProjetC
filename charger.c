@@ -6,6 +6,7 @@
 extern EVENEMENT *tete;
 extern PERSONNE *teteListePers;
 
+/*remplit la liste teteListePers*/
 void chargerListePersonnes(char nom[100], char prenom[100], char email[100]){
 	PERSONNE *pers = (PERSONNE *)malloc(sizeof(PERSONNE));
 	
@@ -17,6 +18,7 @@ void chargerListePersonnes(char nom[100], char prenom[100], char email[100]){
 	teteListePers = pers;
 }
 
+/*Lit le fichier contenant les données sur les participants afin de charger la liste teteListePers*/
 void lectureFichierParticipants(char *nomFichier){
 	char *m_tP,nomP[100],prenomP[100],emailP[100],ligneP[200],carP;
 	int nb1 = 0;
@@ -54,6 +56,7 @@ void lectureFichierParticipants(char *nomFichier){
 		printf("Fichier contenant les participants introuvable\n");
 }
 
+/*remplit la liste tete*/
 void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDebut[50], char heureDebut[50], char dateFin[50], char heureFin[50],PERSONNE *p){
 	EVENEMENT *e = (EVENEMENT *)malloc(sizeof(EVENEMENT));
 	
@@ -67,6 +70,8 @@ void chargerEvenement(char nom[100], char lieu[100], char desc[200], char dateDe
 	tete = e;	
 }
 
+
+/*Lit le fichier contenant les données sur les événements afin de charger la liste tete*/
 void lectureFichierEvenement(char *nomFichier){
 	char *m_t,nom[100],lieu[100],desc[200],dateDeb[10],dateFin[10],heureDeb[5],heureFin[5],*participant,ligne[350],car;
 	PERSONNE *temp;	
@@ -147,17 +152,19 @@ void lectureFichierEvenement(char *nomFichier){
 	
 		fclose(f1);
 		printf("Chargement des événements réussi\n");
-		/*free(p); free(temp);*/
 	}else
 		printf("Fichier .txt contenant les événements introuvable \n");
 }
 
+
+/*appelle les fonctions chargeant les données après avoir averti l'utilisateur d'une possible perte de données*/
 void charger(char *nomFichier){
 	char *temp,*part;
-	int choix = 0;
+	int choix;
 	int chargement = 1;
 
 	if(tete != NULL){
+		choix = 0;
 		printf("Attention, en chargeant les données d'un fichier vous allez perdre les données actuelles! Voulez vous continuer? 1)Oui 2)Non\n");
 		scanf("%1d",&choix);
 		getchar();
@@ -173,7 +180,7 @@ void charger(char *nomFichier){
 		}
 	}
 
-	if(chargement){
+	if(chargement == 1){
 		tete = NULL;
 		teteListePers = NULL;
 		temp = (char*)malloc((strlen(nomFichier)+1)*sizeof(char));

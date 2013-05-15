@@ -11,8 +11,6 @@ void libererEvenement(EVENEMENT* e){
 	if(e->suivant != NULL){
 		libererEvenement(e->suivant);
 	}
-	/*if(e->participants != NULL)
-		libererPersonne(e->participants);*/
 	free(e->dateDebut);
 	free(e->dateFin);
 	free(e);
@@ -31,6 +29,7 @@ void libererTheme(THEME* t){
 	}
 	free(t);
 }
+
 void menuGestion(char theme[100]){
 	char nomTemp[100], *nom,dateTemp[12], *date,heureTemp[6],*heure,dateDebut[100],dateFin[100];
 	char * msg = (char *)malloc((strlen(theme)+54)*sizeof(char)); 
@@ -51,9 +50,10 @@ void menuGestion(char theme[100]){
 		printf("\t5)Consulter les créneaux disponibles d'un jour donné\n");
 		printf("\t6)Sauvegarder le(s) événement(s) créé(s)\n");
 		printf("\t7)Charger des événements\n");
-		printf("\t8)Quitter\n");
+		printf("\t8)Quitter le thème\n");
 		printf("Votre choix :\n");
 		
+		choix = 0;
 		fflush(stdin);
 		scanf("%d",&choix);
 		getchar();
@@ -236,7 +236,9 @@ int main(int argc, char** argv) {
 		printf("\t7)Quitter\n");
 		printf("Votre choix :\n");
 		
-		scanf("%1d",&choix);
+		choix  = 0;
+		fflush(stdin);
+		scanf("%d",&choix);
 		getchar();
 
 		switch(choix){

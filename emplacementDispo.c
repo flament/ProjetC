@@ -5,6 +5,7 @@
 
 extern EVENEMENT *tete;
 
+/*informe s'il est possible de créer un événement aux dates et horaires voulus*/
 int emplacementDispo(char dateDeb[10],char dateFin[10], char heureDeb[5], char heureFin[5]){
 	EVENEMENT *temp = tete;	
 	int jourDeb, jourFin, moisDeb, moisFin, anneeDeb, anneeFin, heureD, heureF, minuteD, minuteF;

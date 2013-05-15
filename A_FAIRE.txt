@@ -1,9 +1,0 @@
-/*vérification des dates+heures et une boucle demandant de changer l'une des deux si pas bon, et boucle jusqu'à ce que ce soit correct*/ dans modifEvt
-
-dans charger et dans enregistrer, mettre le param en fgets a la place?
-
-verifier que le participant n'est pas deja dans la liste
-
-Participants dans la description lors de l'écriture du fichier calendrier
-
-penser au free!

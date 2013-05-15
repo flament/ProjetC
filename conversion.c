@@ -3,6 +3,7 @@
 #include "Agenda.h"
 #include <string.h>
 
+/*remplit la structure tm avec les données rentrées concernant les dates et les horaires*/
 struct tm* convertirStringToDate(char s[50], char h[50]){
 	char *jour, *m_t, *mois, *annee,*heure,*minute;
 	struct tm* tim;

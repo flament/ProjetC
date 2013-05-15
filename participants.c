@@ -3,17 +3,23 @@
 #include "Agenda.h"
 #include <string.h>
 
+/*liste chaînée contenant les participants d'un événement*/
 PERSONNE *tetePers = NULL;
+/*liste chaînée contenant tous les participants*/
 PERSONNE *teteListePers = NULL;
 
+/*remise à zéro de la liste chaînée contenant les participants à un événement*/
 void razTetePersonne(){
 	tetePers = NULL;
 }
+
 
 void recuperationParticipantsEvt(PERSONNE *p){
 	tetePers = p;
 }
 
+
+/*retourne le participant ajouté*/
 PERSONNE *ajouterParticipant(){
 	char *prenom, *nom, *email;
 	PERSONNE *pers = (PERSONNE *)malloc(sizeof(PERSONNE));
@@ -61,6 +67,7 @@ PERSONNE *ajouterParticipant(){
 	return tetePers;
 }
 
+/*indique si une personne est déjà inscrite*/
 PERSONNE *testPersonneDejaExistente(char email[100]){
 	PERSONNE *temp = teteListePers;
 	PERSONNE *res = (PERSONNE *)malloc(sizeof(PERSONNE));
@@ -77,6 +84,7 @@ PERSONNE *testPersonneDejaExistente(char email[100]){
 	return res;
 }
 
+/*indique si une personne est déjà inscrite à  un événement*/
 PERSONNE *rechercherParticipant(char email[100]){
 	PERSONNE *temp = tetePers;
 	PERSONNE *res = (PERSONNE *)malloc(sizeof(PERSONNE));
@@ -93,7 +101,7 @@ PERSONNE *rechercherParticipant(char email[100]){
 	return res;
 }
 
-/*Suprime un participant d'un evt donné*/
+/*Supprime un participant d'un événement donné*/
 PERSONNE * supprimerParticipantEvt(char email[100]){
 	PERSONNE *p = rechercherParticipant(email);
 	PERSONNE* temp = tetePers;
@@ -117,16 +125,17 @@ PERSONNE * supprimerParticipantEvt(char email[100]){
 	return temp;
 }
 
-
+/*permet de modifier les données concernant un participant*/
 PERSONNE* modifierParticipant(char email[100]){
 	PERSONNE *p = rechercherParticipant(email);
 	PERSONNE *test = testPersonneDejaExistente(email);
 
 	char *modifPrenom, *modifNom, *modifEmail;
-	int modifier = 0, exit = 0;
+	int modifier, exit = 0;
 
 	if(p != NULL){
 		while(!exit){
+			modifier = 0;
 			printf("Que voulez-vous modifier ?\n1) le nom\t2)le prénom\t3)l'email\t 4)Quitter\n");
 			scanf("%d",&modifier);
 			getchar();
@@ -166,13 +175,7 @@ PERSONNE* modifierParticipant(char email[100]){
 	return p;
 }
 
-/*Supprime un participant de la liste des inscrits et de la liste des participants des évènements auxquels il était inscrit*/
-void supprimerParticipant(char email[100]){
-
-
-
-}
-
+/*affiche les participants présents à un événement*/
 char *afficherParticipants(){
 	char *res = (char*)malloc(310*sizeof(char));
 	char nb[1],nomTemp[100],prenomTemp[100],emailTemp[100];

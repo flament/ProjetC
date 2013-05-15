@@ -3,8 +3,10 @@
 #include "Agenda.h"
 #include <string.h>
 
+/*liste chaînée contenant les thèmes*/
 THEME *teteTheme = NULL;
 
+/*permet d'ajouter un thème*/
 void ajouterTheme(){
 	char nomTemp[101], *nom;
 	THEME *theme = (THEME *)malloc(sizeof(THEME));
@@ -43,6 +45,7 @@ void ajouterTheme(){
 
 }
 
+/*permet de supprimer un thème*/
 void supprimerTheme(char nom[100]){
 	THEME *t = rechercherTheme(nom);
 	THEME* temp = teteTheme;
@@ -63,6 +66,8 @@ void supprimerTheme(char nom[100]){
 		printf("\nThème inexistant\n\n");
 }
 
+
+/*permet de modifier les données d'un thème*/
 void modifierTheme(char nomT[100]){
 	char nomTemp[101], *nom;
 	THEME *t = rechercherTheme(nomT);
@@ -100,6 +105,7 @@ void modifierTheme(char nomT[100]){
 		printf("\nThème inexistant\n\n");
 }
 
+/*recherche un thème*/
 THEME *rechercherTheme(char nom[100]){
 	THEME *temp = teteTheme;
 	THEME *res = (THEME *)malloc(sizeof(THEME));
@@ -116,6 +122,7 @@ THEME *rechercherTheme(char nom[100]){
 	return res;
 }
 
+/*affiche les thèmes*/
 char *afficherThemes(){
 	char *res = (char*)malloc(105*sizeof(char));
 	char nb[1],nomTemp[100];
@@ -143,6 +150,7 @@ char *afficherThemes(){
 	return res;
 }
 
+/*enregistre les thèmes créés dans un fichier*/
 void enregistrerTheme(char *nomFichier){
 	THEME *temp = teteTheme;
 	FILE *f;
@@ -163,6 +171,7 @@ void enregistrerTheme(char *nomFichier){
 		printf("Impossible d'ouvrir le fichier\n");
 }
 
+/*remplit la liste de thèmes*/
 void chargerTheme(char *nom){
 	THEME *t = (THEME *)malloc(sizeof(THEME));
 	
@@ -171,11 +180,13 @@ void chargerTheme(char *nom){
 	teteTheme = t;
 }
 
+/*demande confirmation à l'utilisateur s'il souhaite toujours charger les données d'un fichier car il risque de perdre les données déjà présentes*/
 void confirmation(char *nom){
 	int chargement = 1;
-	int choix = 0;
+	int choix;
 
 	if(teteTheme != NULL){
+		choix = 0;
 		printf("Attention, en chargeant les données d'un fichier vous allez perdre les données actuelles! Voulez vous continuer? 1)Oui 2)Non\n");
 		scanf("%d",&choix);
 		getchar();
@@ -196,6 +207,7 @@ void confirmation(char *nom){
 	
 }
 
+/*lit le fichier chargé contenant les thèmes afin de récupérer les données*/
 void lectureFichierThemes(char *nomFichier){
 	char *m_t,nom[100],ligne[200],car;
 	int nb = 0;
